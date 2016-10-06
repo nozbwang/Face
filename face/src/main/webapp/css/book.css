@@ -1,6 +1,29 @@
 @CHARSET "UTF-8";
 
- li{list-style:none;  display:block; float:left; }
+ li{
+ 	list-style:none;  
+ 	display:block; 
+ 	float:left; 
+ 	height:200px;
+ 	width:200px;
+ 	margin-top:10px;
+ }
  
- 
+ #left_img_book{
+	float:left;
+	width:300px;
+	margin-left:10px;
+}
+
+#right_form_book{
+	margin-top:60px;
+	margin-left:500px;
+	width:800px;
+}
+
+#fixed_table_book{
+	table-layout:fixed ; 
+	width:900px;
+	word-wrap: break-word;
+}
 

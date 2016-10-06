@@ -30,8 +30,8 @@ pre{
 
 #right_form{
 	margin-top:60px;
-	margin-left:550px;
-	width:600px;
+	margin-left:450px;
+	width:800px;
 }
 
 #bottom_word{
@@ -41,6 +41,12 @@ pre{
 
 #topLink a{
 	margin-right:10px
+}
+
+.clearFloat{clear:both} 
+
+textarea{
+	overflow:visible;
 }
 
 p{
@@ -68,10 +74,10 @@ p{
 	text-align: right;
 }
 
-input {
+input[type="text"],input[type="password"] {
  font-family:'Verdana';
- width:180px;
- height:22px;
+ width:370px;
+ height:24px;
 }
 
 .ok{
@@ -82,5 +88,19 @@ input {
     display: inline-block;
 }
 
- li{list-style:none;}
+ul{
+	list-style:none;
+	text-align:left;
+}
 
+ul li{
+	float:left;
+	margin:10px 10px;
+}
+
+ #submitButton{
+  width: 180px; 
+  height: 30px;
+  cursor:pointer;
+ }
+ 

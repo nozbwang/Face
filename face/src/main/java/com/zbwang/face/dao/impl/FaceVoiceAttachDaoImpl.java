@@ -1,8 +1,11 @@
 package com.zbwang.face.dao.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.google.common.collect.Lists;
@@ -24,10 +27,18 @@ public class FaceVoiceAttachDaoImpl extends BaseDaoImpl implements FaceVoiceAtta
 
 	@Override
 	public List<FaceVoiceAttach> getAttachByVoiceIdGroup(List<Integer> voiceIds) {
+		return getAttachByBelongType(voiceIds, StringUtils.EMPTY);
+	}
+
+	@Override
+	public List<FaceVoiceAttach> getAttachByBelongType(List<Integer> voiceIds, String belongType) {
 		if (CollectionUtils.isEmpty(voiceIds)) {
 			return Lists.newArrayList();
 		}
-		return getSqlMapClientTemplate().queryForList("face_voice_attachment.getAttachByVoiceIdGroup", voiceIds);
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("voiceIds", voiceIds);
+		paramMap.put("belongType", belongType);
+		return getSqlMapClientTemplate().queryForList("face_voice_attachment.getAttachByVoiceIdGroup", paramMap);
 	}
 
 	@Override

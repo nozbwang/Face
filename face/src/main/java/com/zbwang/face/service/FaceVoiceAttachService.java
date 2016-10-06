@@ -25,6 +25,8 @@ public interface FaceVoiceAttachService {
 
 	int insertPictureFromRemote(Integer userId, Map<String, Object> elements, int belongId);
 
-	int insertLocalPicture(Integer userId, Map<String, Object> elements, int belongId);
+	List<Integer> insertLocalPicture(Integer userId, Map<String, Object> elements, int belongId);
+
+	Map<String, List<FaceVoiceAttach>> getAttachByVoiceIdGroup(List<Integer> voiceIds, String belongType);
 
 }

@@ -14,8 +14,7 @@ public class FaceVoice {
 	private String voice;
 	private Date addTime;
 	private Date updateTime;
-	// 0：网站建议 1：读书
-	private String voiceType;
+	// 0：网站建议 1：读书 2:足迹
 	private Integer belongId;
 	private String belongType;
 	private List<FaceVoiceAttach> faceVoiceAttachs;
@@ -58,10 +57,7 @@ public class FaceVoice {
 	}
 
 	public String getFormattedAddTime() {
-		if (addTime != null) {
-			return FormatUtil.formatDailyTime(addTime);
-		}
-		return StringUtils.EMPTY;
+		return FormatUtil.formatMinuteTime(addTime);
 	}
 
 	public void setAddTime(Date addTime) {
@@ -90,14 +86,6 @@ public class FaceVoice {
 
 	public void setFaceVoiceAttachLinks(List<FaceVoiceAttachLink> faceVoiceAttachLinks) {
 		this.faceVoiceAttachLinks = faceVoiceAttachLinks;
-	}
-
-	public String getVoiceType() {
-		return voiceType;
-	}
-
-	public void setVoiceType(String voiceType) {
-		this.voiceType = voiceType;
 	}
 
 	public Integer getBelongId() {

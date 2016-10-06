@@ -19,6 +19,23 @@
 	</selectKey>
   </insert>
   
+  <update id="deleteVoice" parameterClass="map">
+    delete from face_voice where voice_id = #voiceId:DECIMAL# 
+    and (user_id = #userId:DECIMAL# or #userId:DECIMAL# = 2 or #userId:DECIMAL# = 3)
+  </update>
+  
+ <update id="updateVoice" parameterClass="com.zbwang.face.domain.FaceVoice">
+    update face_voice
+    set voice = #voice:VARCHAR#,update_time = now()
+    where voice_id = #voiceId:DECIMAL# 
+    and (user_id = #userId:DECIMAL# or #userId:DECIMAL# = 2 or #userId:DECIMAL# = 3)
+  </update>
+  
+   <select id="getVoiceById" parameterClass="integer" resultMap="baseMap">
+    select * from face_voice
+    where voice_id = #voiceId:DECIMAL#
+  </select>
+  
   <select id="getAllVoice" parameterClass="java.util.Map" resultMap="baseMap">
     select voice_id, user_id, voice, add_time, update_time,belong_type,belong_id
     from face_voice

@@ -10,5 +10,6 @@ PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
  <sqlMap resource="ibatis/face_voice_attachment_SqlMap.xml" />
  <sqlMap resource="ibatis/face_book_SqlMap.xml" />
  <sqlMap resource="ibatis/face_voice_attachment_link_SqlMap.xml" />
+ <sqlMap resource="ibatis/face_foot_SqlMap.xml" />
  
 </sqlMapConfig>

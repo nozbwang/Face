@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zbwang.face.domain.FaceVoice;
 import com.zbwang.face.domain.FaceVoiceAttach;
 import com.zbwang.face.domain.FaceVoiceAttachLink;
-import com.zbwang.face.service.FaceBookService;
 import com.zbwang.face.service.FaceVoiceAttachLinkService;
 import com.zbwang.face.service.FaceVoiceAttachService;
 import com.zbwang.face.service.FaceVoiceService;
@@ -24,8 +23,6 @@ import com.zbwang.face.service.FaceVoiceService;
 public class IndexController extends BaseController {
 	@Autowired
 	private FaceVoiceService faceVoiceService;
-	@Autowired
-	private FaceBookService faceBookService;
 	@Autowired
 	private FaceVoiceAttachService faceVoiceAttachService;
 	@Autowired

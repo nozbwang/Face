@@ -20,4 +20,6 @@ public interface FaceVoiceAttachDao {
 
 	FaceVoiceAttach getOrignalAttachByAttachId(Integer attachId);
 
+	List<FaceVoiceAttach> getAttachByBelongType(List<Integer> voiceIds, String belongType);
+
 }

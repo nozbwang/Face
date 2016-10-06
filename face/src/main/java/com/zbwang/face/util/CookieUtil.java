@@ -43,15 +43,15 @@ public class CookieUtil {
 		Cookie cookie = new Cookie(FaceConstants.COOKIE_LOGIN, UserId);
 		cookie.setDomain(".bobomeilin.com");
 		cookie.setPath("/");
-		cookie.setMaxAge(FaceConstants.COOKIE_SESSION);
+		cookie.setMaxAge(FaceConstants.VALID_VISIT_TIME);
 		addHttpOnlyCookie(response, cookie);
 	}
 
 	public static void addLVTCookie(HttpServletResponse response) {
-		Cookie cookie = new Cookie(FaceConstants.COOKIE_LOGIN_LVT, FormatUtil.formatDailyTime(new Date()));
+		Cookie cookie = new Cookie(FaceConstants.COOKIE_LOGIN_LVT, FormatUtil.formatMinuteTime(new Date()));
 		cookie.setDomain(".bobomeilin.com");
 		cookie.setPath("/");
-		cookie.setMaxAge(FaceConstants.COOKIE_SESSION);
+		cookie.setMaxAge(FaceConstants.VALID_VISIT_TIME);
 		addHttpOnlyCookie(response, cookie);
 	}
 

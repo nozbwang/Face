@@ -4,14 +4,14 @@
 <html>
 <head>
 	<title>心声</title>
-	<%@ include file="common.jsp"%>
+	<%@ include file="common/common.jsp"%>
 </head>
 
 <body>
 
-<%@include file="topLink_visitor.jsp" %>
+<%@include file="common/topLink.jsp" %>
 
-<div id="left_img"><img src="images/windowtree.jpg" alt="by bobomeilin" /></div>
+<%@include file="common/leftLink.jsp" %>
 
 <div id="right_form">
 <table id="fixed_table" cellspacing="5">
@@ -32,7 +32,7 @@
 					<a href="/bigAttach?attachId=${attachItem.attachmentId}"><img src="/attach?attachId=${attachItem.attachmentId}"></a>
 				</c:if>
 				<c:if test="${attachItem.isCompressed eq '1' }">
-				    loading picture...
+				    </br>loading picture...
 				</c:if>
 			</c:forEach>
 			<c:forEach items="${item.faceVoiceAttachLinks}" var="attachLinkItem">
@@ -49,6 +49,6 @@
 </table>
 </div>
 
-<%@ include file="bottom.jsp"%>
+<%@ include file="common/bottom.jsp"%>
 </body>
 </html>

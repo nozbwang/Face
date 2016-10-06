@@ -1,5 +1,6 @@
 package com.zbwang.face.util;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +12,13 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.zbwang.face.constant.FaceConstants;
 
 public class RequestUtil {
+
+	private static final Logger LOG = Logger.getLogger(RequestUtil.class);
 
 	public static Map<String, Object> getElements(HttpServletRequest request) {
 		Map<String, Object> elements = new HashMap<String, Object>();
@@ -23,15 +27,27 @@ public class RequestUtil {
 			for (FileItem item : list) {
 				if (item.isFormField()) {
 					String value = item.getString("UTF-8");
+					String key = item.getFieldName();
 					if (StringUtils.isNotBlank(value)) {
-						elements.put(item.getFieldName(), value);
+						if (elements.containsKey(key)) {
+							elements.put(key, StringUtils.join(new String[] { value, (String) elements.get(key) }, ","));
+						} else {
+							elements.put(item.getFieldName(), value);
+						}
 					}
 				} else if (FaceConstants.picContentTypes.contains(item.getContentType())) {
-					elements.put(item.getFieldName(), item);
+					String key = item.getFieldName();
+					if (elements.containsKey(key)) {
+						((List<FileItem>) elements.get(key)).add(item);
+					} else {
+						List<FileItem> items = new ArrayList<FileItem>();
+						items.add(item);
+						elements.put(item.getFieldName(), items);
+					}
 				}
 			}
 		} catch (Exception e) {
-
+			LOG.error("Fail to convert request information from request.", e);
 		}
 		return elements;
 	}

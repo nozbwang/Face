@@ -20,7 +20,7 @@ public class FaceConstants {
 	public static int COOKIE_SESSION = -2;
 
 	// time
-	public static long VALID_VISIT_TIME = 3 * 24 * 60 * 60 * 1000;
+	public static int VALID_VISIT_TIME = 365 * 24 * 60 * 60 * 1000;
 
 	// Content-Type
 	// pic
@@ -76,6 +76,7 @@ public class FaceConstants {
 
 	// 类型
 	public static final String B_TYPE_BOOK = "1";
+	public static final String B_TYPE_FOOT = "2";
 
 	// BOOK
 	public static final String BOOK_LITERATURE = "literature";

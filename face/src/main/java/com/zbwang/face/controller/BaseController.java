@@ -1,5 +1,7 @@
 package com.zbwang.face.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
@@ -25,16 +27,24 @@ public class BaseController {
 		return getModelAndView("command", object, view, request);
 	}
 
+	public ModelAndView getBaseModelAndView(Map modelMap, String view, HttpServletRequest request) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addAllObjects(modelMap);
+		modelAndView.setViewName(view);
+		modelAndView.addObject("user", getUser(request));
+		return modelAndView;
+	}
+
 	public ModelAndView getBaseModelAndView(String view, HttpServletRequest request) {
 		return getBaseModelAndView(null, view, request);
 	}
 
 	public ModelAndView getSuccessModelAndView(Object object, HttpServletRequest request) {
-		return getModelAndView("success", object, "success", request);
+		return getModelAndView("success", object, "common/success", request);
 	}
 
 	public ModelAndView getErrorModelAndView(Object object, HttpServletRequest request) {
-		return getModelAndView("error", object, "error", request);
+		return getModelAndView("error", object, "common/error", request);
 	}
 
 	public boolean isLogon(HttpServletRequest request) {

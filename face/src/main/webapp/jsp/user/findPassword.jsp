@@ -4,15 +4,13 @@
 <html>
 <head>
 	<title>找回密码</title>
-	<%@ include file="common.jsp"%>
+	<%@ include file="../common/common.jsp"%>
 </head>
 
 <body>
 
-	<%@include file="topLink_visitor.jsp" %>
-	<div id="left_img">
-		<img src="images/windowtree.jpg" alt="by bobomeilin" />
-	</div>
+	<%@include file="../common/topLink.jsp" %>
+	<%@include file="../common/leftLink.jsp" %>
 	
 	<div id="right_form">
         <form action="/user/findPassword" method="post">
@@ -29,13 +27,13 @@
                 </tr>
                 <tr>
                     <td colspan="2" class="right">
-                    	<input style="width:165px;height:30px;" type="submit" value="提交">
+                    	<input  class="submitButton"  type="submit" value="提交">
                     </td>
                 </tr>
             </table>
         </form>
     </div>
 
-	<%@ include file="bottom.jsp"%>
+	<%@ include file="../common/bottom.jsp"%>
 </body>
 </html>

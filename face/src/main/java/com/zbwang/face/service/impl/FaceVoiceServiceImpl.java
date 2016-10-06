@@ -17,20 +17,38 @@ public class FaceVoiceServiceImpl implements FaceVoiceService {
 	private FaceVoiceDao faceVociceDao;
 
 	@Override
-	public List<FaceVoice> getLatestVoice(int startRow, int endRow, String belongType) {
-		return faceVociceDao.getLatestVoice(startRow, endRow, belongType);
+	public List<FaceVoice> getLatestVoice(int startRow, int endRow, String belongType, Integer belongId) {
+		return faceVociceDao.getLatestVoice(startRow, endRow, belongType, belongId);
 	}
 
 	@Override
 	public List<FaceVoice> getLatestVoice(int startRow, int endRow) {
-		return faceVociceDao.getLatestVoice(startRow, endRow, null);
+		return faceVociceDao.getLatestVoice(startRow, endRow, null, null);
+	}
+
+	@Override
+	public void updateVoice(Integer userId, Map<String, Object> elements) {
+		FaceVoice faceVoice = new FaceVoice();
+		faceVoice.setVoice((String) elements.get("voice"));
+		faceVoice.setVoiceId(NumberUtils.toInt((String) elements.get("voiceId")));
+		faceVoice.setUserId(userId);
+		faceVociceDao.updateVoice(faceVoice);
+	}
+
+	@Override
+	public void deleteVoice(Integer voiceId, Integer userId) {
+		faceVociceDao.deleteVoice(voiceId, userId);
+	}
+
+	@Override
+	public FaceVoice getVoiceById(int voiceId) {
+		return faceVociceDao.getVoiceById(voiceId);
 	}
 
 	@Override
 	public int insertVoice(Integer userId, Map<String, Object> elements) {
 		FaceVoice faceVoice = new FaceVoice();
 		faceVoice.setVoice((String) elements.get("voice"));
-		faceVoice.setVoiceType((String) elements.get("voiceType"));
 		faceVoice.setUserId(userId);
 		faceVoice.setBelongId(NumberUtils.toInt((String) elements.get("belongId")));
 		faceVoice.setBelongType((String) elements.get("belongType"));

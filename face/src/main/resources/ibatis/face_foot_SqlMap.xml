@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="face_foot" >
+  <resultMap id="footResult" class="com.zbwang.face.domain.FaceFoot" >
+    <result column="foot_id" property="footId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="foot_title" property="footTitle" jdbcType="VARCHAR" />
+    <result column="footer" property="footer" jdbcType="VARCHAR" />
+    <result column="foot_detail" property="footDetail" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+ 
+  <select id="getFoot" resultMap="footResult" parameterClass="map" >
+    select foot_id, user_id, foot_title, footer, foot_detail, add_time, update_time
+    from face_foot
+    limit #startRow:INTEGER#, #endRow:INTEGER#
+  </select>
+  
+  <select id="getFootById" resultMap="footResult" parameterClass="int" >
+    select foot_id, user_id, foot_title, footer, foot_detail, add_time, update_time
+    from face_foot
+    where foot_id = #footId:INTEGER#
+  </select>
+ 
+  <insert id="insertFoot" parameterClass="com.zbwang.face.domain.FaceFoot" >
+    insert into face_foot ( user_id, foot_title, footer, foot_detail, add_time, update_time)
+    values (#userId:INTEGER#, #footTitle:VARCHAR#, #footer:VARCHAR#,
+      #footDetail:VARCHAR#, #addTime:TIMESTAMP#, #updateTime:TIMESTAMP#);
+      <selectKey resultClass="int">
+		SELECT LAST_INSERT_ID() as footId
+	</selectKey>
+  </insert>
+  
+</sqlMap>

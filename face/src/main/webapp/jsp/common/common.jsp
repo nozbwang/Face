@@ -1,4 +1,4 @@
-<base href="<%=request.getContextPath()%>/">
+<base href="<%=request.getContextPath()%>">
 <link rel="Shortcut Icon" href="/images/windowtree.ico">
 <meta charset="UTF-8" />
 <meta name="Keywords" content="内心的声音，发现美好，创造美好" />

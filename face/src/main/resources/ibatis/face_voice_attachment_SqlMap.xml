@@ -21,14 +21,17 @@
     <result column="smallcontent" jdbcType="LONGVARBINARY" property="smallContent" />
   </resultMap>
   
-  <select id="getAttachByVoiceIdGroup" parameterClass="java.util.List" resultMap="FaceVoiceAttachmentWithCompressFlag">
-    select attachment_id, belong_id, user_id, attachment_name,size,smallContent IS NULL AS iscompressed
+  <select id="getAttachByVoiceIdGroup" parameterClass="java.util.HashMap" resultMap="FaceVoiceAttachmentWithCompressFlag">
+    select attachment_id, belong_id, user_id, attachment_name, size, smallContent IS NULL AS iscompressed
     from face_voice_attachment
     where 1=1
     AND belong_id in
-    <iterate open="(" close=")" conjunction=",">
+    <iterate open="(" close=")" conjunction="," property="voiceIds">
 		#voiceIds[]:INTEGER#
 	</iterate>
+	<isNotEmpty prepend="AND" property="belongType">
+		belong_type=#belongType:VARCHAR#
+	</isNotEmpty>
   </select>
   
   <select id="getAttachNeedCompress" parameterClass="java.lang.Long" resultMap="FaceVoiceAttachment">

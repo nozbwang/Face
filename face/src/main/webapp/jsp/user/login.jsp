@@ -4,14 +4,14 @@
 <html>
 <head>
 	<title>登录心声</title>
-	<%@ include file="common.jsp"%>
+	<%@ include file="../common/common.jsp"%>
 </head>
 
 <body>
 
-	<%@include file="topLink_visitor.jsp" %>
+	<%@include file="../common/topLink.jsp" %>
 	
-	<div id="left_img"><img src="images/windowtree.jpg" alt="by bobomeilin" /></div>
+	<%@include file="../common/leftLink.jsp" %>
 
     <div id="right_form">
         <form name="loginForm" action="/user/loginVoice" method="POST" onsubmit="return checkAll()">
@@ -32,7 +32,9 @@
                     <td id="passwordNotice"></td>
                 </tr>
                 <tr>
-                    <td colspan="2"><input style="width:180px;height:30px;" type="submit" value="登录"></td>
+                    <td colspan="2">
+                	    <input id="submitButton"  type="submit" value="登录">
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2"><a href="/user/register">新用户注册</a></td>
@@ -44,7 +46,7 @@
         </form>
     </div>
 	
-	<%@ include file="bottom.jsp"%>
+	<%@ include file="../common/bottom.jsp"%>
 </body>
 
 <script src="<%=request.getContextPath() %>/js/jquery-1.9.1.js"></script>

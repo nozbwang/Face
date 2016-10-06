@@ -31,7 +31,7 @@ public class FaceUserController extends BaseController {
 
 	@RequestMapping("/register")
 	public ModelAndView register(HttpServletRequest request) {
-		return getBaseModelAndView("register", request);
+		return getBaseModelAndView("user/register", request);
 	}
 
 	@RequestMapping("/registerVoice")
@@ -58,7 +58,7 @@ public class FaceUserController extends BaseController {
 		if (isLogon(request)) {
 			return getBaseModelAndView(getRedirectView(""), request);
 		}
-		return getBaseModelAndView("login", request);
+		return getBaseModelAndView("user/login", request);
 	}
 
 	@RequestMapping("/loginVoice")
@@ -89,7 +89,7 @@ public class FaceUserController extends BaseController {
 
 	@RequestMapping("/find")
 	public ModelAndView find(HttpServletRequest request) {
-		return getBaseModelAndView("findPassword", request);
+		return getBaseModelAndView("user/findPassword", request);
 	}
 
 	@RequestMapping("/findPassword")

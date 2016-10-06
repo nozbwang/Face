@@ -3,13 +3,16 @@ package com.zbwang.face.controller;
 import java.text.MessageFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -51,25 +54,67 @@ public class FaceVoiceController extends BaseController {
 		Integer userId = getUser(request).getUserId();
 		if (!elements.isEmpty()) {
 			int voiceId = faceVoiceService.insertVoice(userId, elements);
-			int localPictureId = faceVoiceAttachService.insertLocalPicture(userId, elements, voiceId);
+			List<Integer> localPictureIds = faceVoiceAttachService.insertLocalPicture(userId, elements, voiceId);
 			int remotePictureId = faceVoiceAttachService.insertPictureFromRemote(userId, elements, voiceId);
 			faceVoiceAttachLinkService.insertMusicFromRemote(userId, elements, voiceId);
-			sendVoiceNoticeMail((String) elements.get("voice"), localPictureId, remotePictureId);
+			sendVoiceNoticeMail((String) elements.get("voice"), localPictureIds, remotePictureId);
+		}
+		String belongType = (String) elements.get("belongType");
+		if (FaceConstants.B_TYPE_BOOK.equals(belongType)) {
+			int belongId = NumberUtils.toInt((String) elements.get("belongId"));
+			return getBaseModelAndView(getRedirectView("book/detail?bookId=" + belongId), request);
 		}
 		return getBaseModelAndView(getRedirectView(""), request);
 	}
 
-	private void sendVoiceNoticeMail(String voice, int localPictureId, int remotePictureId) {
-		if (StringUtils.isBlank(voice) && isInvalidID(localPictureId) && isInvalidID(remotePictureId)) {
+	@RequestMapping("/updateVoice")
+	public ModelAndView updateVoice(HttpServletRequest request) throws Exception {
+		Map<String, Object> elements = RequestUtil.getElements(request);
+		Integer userId = getUser(request).getUserId();
+		if (userId != null && FaceConstants.ID_UNKOWN != userId) {
+			faceVoiceService.updateVoice(userId, elements);
+			sendVoiceNoticeMail((String) elements.get("voice"));
+		}
+		String belongType = (String) elements.get("belongType");
+		if (FaceConstants.B_TYPE_BOOK.equals(belongType)) {
+			int belongId = NumberUtils.toInt((String) elements.get("belongId"));
+			return getBaseModelAndView(getRedirectView("book/detail?bookId=" + belongId), request);
+		}
+		return
+
+		getBaseModelAndView(getRedirectView(""), request);
+	}
+
+	@RequestMapping("/deleteVoice")
+	public ModelAndView deleteVoice(HttpServletRequest request) throws Exception {
+		Integer userId = getUser(request).getUserId();
+		Integer voiceId = NumberUtils.toInt((String) request.getParameter("voiceId"));
+		if (userId != null && FaceConstants.ID_UNKOWN != userId) {
+			faceVoiceService.deleteVoice(voiceId, userId);
+		}
+		String belongType = (String) request.getParameter("belongType");
+		if (FaceConstants.B_TYPE_BOOK.equals(belongType)) {
+			int belongId = NumberUtils.toInt((String) request.getParameter("belongId"));
+			return getBaseModelAndView(getRedirectView("book/detail?bookId=" + belongId), request);
+		}
+		return getBaseModelAndView(getRedirectView(""), request);
+	}
+
+	private void sendVoiceNoticeMail(String voice) {
+		sendVoiceNoticeMail(voice, null, FaceConstants.ID_UNKOWN);
+	}
+
+	private void sendVoiceNoticeMail(String voice, List<Integer> localPictureIds, int remotePictureId) {
+		if (StringUtils.isBlank(voice) && CollectionUtils.isEmpty(localPictureIds) && isInvalidID(remotePictureId)) {
 			return;
 		}
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("voice", voice);
-		map.put("photo", getPhoto(localPictureId, remotePictureId));
-		map.put("addTime", FormatUtil.formatDailyTime(new Date()));
+		map.put("photo", getPhoto(localPictureIds, remotePictureId));
+		map.put("addTime", FormatUtil.formatMinuteTime(new Date()));
 		String basePath = this.getClass().getResource("").getPath();
 		String rootPath = basePath.substring(1, basePath.indexOf("classes"));
-		String voiceNoticeTemplate = getVoiceNoticeTemplate(voice, localPictureId, remotePictureId);
+		String voiceNoticeTemplate = getVoiceNoticeTemplate(voice, localPictureIds, remotePictureId);
 		String mailPath = rootPath + "classes/mail/" + voiceNoticeTemplate;
 		String mailtemplate = FileUtil.readFile(mailPath);
 		String content = StringUtil.replaceVariables(mailtemplate, map);
@@ -93,7 +138,7 @@ public class FaceVoiceController extends BaseController {
 	@RequestMapping("/compressPicture")
 	public ModelAndView compressPicture(HttpServletRequest request) {
 		faceVoiceAttachService.compressPicture();
-		return getBaseModelAndView("success", request);
+		return getBaseModelAndView("common/success", request);
 	}
 
 	@PostConstruct
@@ -116,10 +161,12 @@ public class FaceVoiceController extends BaseController {
 		}
 	}
 
-	private String getPhoto(int localPictureId, int remotePictureId) {
+	private String getPhoto(List<Integer> localPictureIds, int remotePictureId) {
 		StringBuilder result = new StringBuilder();
-		if (!isInvalidID(localPictureId)) {
-			result.append(MessageFormat.format(FaceConstants.photoDiv, localPictureId));
+		if (CollectionUtils.isNotEmpty(localPictureIds)) {
+			for (Integer localPictureId : localPictureIds) {
+				result.append(MessageFormat.format(FaceConstants.photoDiv, localPictureId));
+			}
 		}
 		if (!isInvalidID(remotePictureId)) {
 			result.append(MessageFormat.format(FaceConstants.photoDiv, remotePictureId));
@@ -127,11 +174,11 @@ public class FaceVoiceController extends BaseController {
 		return result.toString();
 	}
 
-	private String getVoiceNoticeTemplate(String voice, int localPictureId, int remotePictureId) {
+	private String getVoiceNoticeTemplate(String voice, List<Integer> localPictureIds, int remotePictureId) {
 		if (StringUtils.isBlank(voice)) {
 			return "voiceNotice_Picture.mail";
 		}
-		if (isInvalidID(localPictureId) && isInvalidID(remotePictureId)) {
+		if (CollectionUtils.isNotEmpty(localPictureIds) && isInvalidID(remotePictureId)) {
 			return "voiceNotice_voice.mail";
 		}
 		return "voiceNotice.mail";

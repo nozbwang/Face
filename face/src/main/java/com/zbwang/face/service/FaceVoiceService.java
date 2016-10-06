@@ -9,8 +9,14 @@ public interface FaceVoiceService {
 
 	List<FaceVoice> getLatestVoice(int startRow, int endRow);
 
-	List<FaceVoice> getLatestVoice(int startRow, int endRow, String belongType);
+	List<FaceVoice> getLatestVoice(int startRow, int endRow, String belongType, Integer belongId);
 
 	int insertVoice(Integer userId, Map<String, Object> elements);
+
+	FaceVoice getVoiceById(int voiceId);
+
+	void deleteVoice(Integer voiceId, Integer userId);
+
+	void updateVoice(Integer userId, Map<String, Object> elements);
 
 }

@@ -18,12 +18,31 @@ public class FaceVoiceDaoImpl extends BaseDaoImpl implements FaceVoiceDao {
 	}
 
 	@Override
-	public List<FaceVoice> getLatestVoice(int startRow, int endRow, String belongType) {
+	public void deleteVoice(Integer voiceId, Integer userId) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("voiceId", voiceId);
+		paramMap.put("userId", userId);
+		getSqlMapClientTemplate().update("face_voice.deleteVoice", paramMap);
+	}
+
+	@Override
+	public void updateVoice(FaceVoice faceVoice) {
+		getSqlMapClientTemplate().update("face_voice.updateVoice", faceVoice);
+	}
+
+	@Override
+	public List<FaceVoice> getLatestVoice(int startRow, int endRow, String belongType, Integer belongId) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("startRow", startRow);
 		paramMap.put("endRow", endRow);
 		paramMap.put("belongType", belongType);
+		paramMap.put("belongId", belongId);
 		return (List<FaceVoice>) getSqlMapClientTemplate().queryForList("face_voice.getAllVoice", paramMap);
+	}
+
+	@Override
+	public FaceVoice getVoiceById(int voiceId) {
+		return (FaceVoice) getSqlMapClientTemplate().queryForObject("face_voice.getVoiceById", voiceId);
 	}
 
 }

@@ -28,7 +28,7 @@ public class FaceBookDaoImpl extends BaseDaoImpl implements FaceBookDao {
 
 	@Override
 	public FaceBook getBookById(Integer bookId) {
-		return (FaceBook) getSqlMapClientTemplate().queryForList("face_book.getBookById", bookId);
+		return (FaceBook) getSqlMapClientTemplate().queryForObject("face_book.getBookById", bookId);
 	}
 
 }

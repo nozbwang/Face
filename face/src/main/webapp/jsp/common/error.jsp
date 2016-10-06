@@ -9,7 +9,7 @@
 
 <body>
 
-<%@include file="topLink_visitor.jsp" %>
+<%@include file="topLink.jsp" %>
 
 <c:out value="${error}" />
 

@@ -1,7 +1,6 @@
 package com.zbwang.face.domain;
 
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -25,7 +24,7 @@ public class FaceBook {
 
 	private String bookType;
 
-	private List<FaceVoiceAttach> faceVoiceAttachs;
+	private FaceVoiceAttach faceVoiceAttach;
 
 	public Integer getBookId() {
 		return bookId;
@@ -98,11 +97,12 @@ public class FaceBook {
 		this.bookType = bookType;
 	}
 
-	public List<FaceVoiceAttach> getFaceVoiceAttachs() {
-		return faceVoiceAttachs;
+	public FaceVoiceAttach getFaceVoiceAttach() {
+		return faceVoiceAttach;
 	}
 
-	public void setFaceVoiceAttachs(List<FaceVoiceAttach> faceVoiceAttachs) {
-		this.faceVoiceAttachs = faceVoiceAttachs;
+	public void setFaceVoiceAttach(FaceVoiceAttach faceVoiceAttach) {
+		this.faceVoiceAttach = faceVoiceAttach;
 	}
+
 }

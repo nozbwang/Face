@@ -33,7 +33,7 @@
     limit #startRow:INTEGER#, #endRow:INTEGER#
   </select>
   
-   <select id="getBookById" resultMap="bookResult" parameterClass="map" >
+   <select id="getBookById" resultMap="bookResult" parameterClass="int" >
     select book_id, user_id, book_title, author, book_detail, add_time, update_time, book_type
     from face_book
     where book_id = #bookId:INTEGER#

@@ -4,14 +4,12 @@
 <html>
 <head>
 	<title>注册心声</title>
-	<%@ include file="common.jsp"%>
+	<%@ include file="../common/common.jsp"%>
 </head>
 
 <body>
-	<%@include file="topLink_visitor.jsp" %>
-	<div id="left_img">
-		<img src="images/windowtree.jpg" alt="by bobomeilin" />
-	</div>
+	<%@include file="../common/topLink.jsp" %>
+	<%@include file="../common/leftLink.jsp" %>
 		
        <div id="right_form">
         <form name="registerForm" action="/user/registerVoice" method="POST">
@@ -41,12 +39,14 @@
                     <td id="mailboxNotice"></td>
                 </tr>
                 <tr>
-                    <td colspan="2" class="right"><input style="width:180px;height:30px;" type="submit" value="注册" ></td>
+                    <td colspan="2" class="right">
+                    	<input class="submitButton"  type="submit" value="注册" >
+                    </td>
                 </tr>
             </table>
         </form>
     </div>
 	
-	<%@ include file="bottom.jsp"%>
+	<%@ include file="../common/bottom.jsp"%>
 	</body>
 </html>

@@ -1,10 +1,12 @@
 package com.zbwang.face.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,27 +59,46 @@ public class FaceVoiceAttachServiceImpl implements FaceVoiceAttachService {
 	}
 
 	@Override
+	public Map<String, List<FaceVoiceAttach>> getAttachByVoiceIdGroup(List<Integer> voiceIds, String belongType) {
+		List<FaceVoiceAttach> faceVoiceAttachGroup = faceVoiceAttachDao.getAttachByBelongType(voiceIds, belongType);
+		Map<String, List<FaceVoiceAttach>> result = new HashMap<String, List<FaceVoiceAttach>>();
+		for (FaceVoiceAttach faceVoiceAttach : faceVoiceAttachGroup) {
+			String voiceId = String.valueOf(faceVoiceAttach.getBelongId());
+			if (!result.containsKey(voiceId)) {
+				result.put(voiceId, new ArrayList<FaceVoiceAttach>());
+			}
+			result.get(voiceId).add(faceVoiceAttach);
+		}
+		return result;
+	}
+
+	@Override
 	public FaceVoiceAttach getAttachByAttachId(Integer attachId) {
 		return faceVoiceAttachDao.getAttachByAttachId(attachId);
 	}
 
 	@Override
-	public int insertLocalPicture(Integer userId, Map<String, Object> elements, int belongId) {
-		FileItem localPicture = (FileItem) elements.get("fileName");
+	public List<Integer> insertLocalPicture(Integer userId, Map<String, Object> elements, int belongId) {
+		List<FileItem> localPictures = (List<FileItem>) elements.get("file");
 		String belongType = (String) elements.get("belongType");
-		if (localPicture != null) {
-			FaceVoiceAttach faceVoiceAttach = new FaceVoiceAttach();
-			faceVoiceAttach.setBelongId(belongId);
-			faceVoiceAttach.setBelongType(belongType);
-			faceVoiceAttach.setUserId(userId);
-			faceVoiceAttach.setAttachmentName(getPhotoNameLimited(localPicture.getName()));
-			faceVoiceAttach.setSize(localPicture.getSize());
-			faceVoiceAttach.setType(localPicture.getContentType());
-			faceVoiceAttach.setContent(localPicture.get());
-			localPicture.delete();
-			return insertVoiceAttach(faceVoiceAttach);
+		List<Integer> localPictureIds = new ArrayList<Integer>();
+		if (CollectionUtils.isNotEmpty(localPictures)) {
+			for (FileItem localPicture : localPictures) {
+				FaceVoiceAttach faceVoiceAttach = new FaceVoiceAttach();
+				faceVoiceAttach.setBelongId(belongId);
+				faceVoiceAttach.setBelongType(belongType);
+				faceVoiceAttach.setUserId(userId);
+				faceVoiceAttach.setAttachmentName(getPhotoNameLimited(localPicture.getName()));
+				faceVoiceAttach.setSize(localPicture.getSize());
+				faceVoiceAttach.setType(localPicture.getContentType());
+				faceVoiceAttach.setContent(localPicture.get());
+				localPicture.delete();
+				int localPictureId = insertVoiceAttach(faceVoiceAttach);
+				localPictureIds.add(localPictureId);
+			}
+			return localPictureIds;
 		}
-		return FaceConstants.ID_UNKOWN;
+		return Collections.emptyList();
 	}
 
 	@Override

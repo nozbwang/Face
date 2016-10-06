@@ -1,11 +1,15 @@
 package com.zbwang.face.util;
 
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.zbwang.face.constant.FaceConstants;
 import com.zbwang.face.domain.FaceUser;
+import com.zbwang.face.domain.FaceVoiceAttach;
 
 public class CommonUtil {
 
@@ -58,6 +62,14 @@ public class CommonUtil {
 
 	public static String getBookCatalog(String catalogName) {
 		return FaceConstants.catalogMap.get(catalogName);
+	}
+
+	public static FaceVoiceAttach getFirstElement(Object recordId, Map<String, List<FaceVoiceAttach>> faceVoiceAttachMap) {
+		List<FaceVoiceAttach> FaceVoiceAttachs = faceVoiceAttachMap.get(String.valueOf(recordId));
+		if (CollectionUtils.isNotEmpty(FaceVoiceAttachs)) {
+			return FaceVoiceAttachs.get(0);
+		}
+		return null;
 	}
 
 }

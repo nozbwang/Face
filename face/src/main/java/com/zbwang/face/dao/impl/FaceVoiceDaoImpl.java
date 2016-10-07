@@ -41,6 +41,15 @@ public class FaceVoiceDaoImpl extends BaseDaoImpl implements FaceVoiceDao {
 	}
 
 	@Override
+	public List<FaceVoice> getVisibleSecret(int startRow, int endRow, Integer userId) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("startRow", startRow);
+		paramMap.put("endRow", endRow);
+		paramMap.put("userId", userId);
+		return (List<FaceVoice>) getSqlMapClientTemplate().queryForList("face_voice.getAllSecret", paramMap);
+	}
+
+	@Override
 	public FaceVoice getVoiceById(int voiceId) {
 		return (FaceVoice) getSqlMapClientTemplate().queryForObject("face_voice.getVoiceById", voiceId);
 	}

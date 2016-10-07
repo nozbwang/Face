@@ -22,8 +22,18 @@ public class FaceVoiceServiceImpl implements FaceVoiceService {
 	}
 
 	@Override
+	public List<FaceVoice> getLatestVoice(int startRow, int endRow, String belongType) {
+		return getLatestVoice(startRow, endRow, belongType, null);
+	}
+
+	@Override
 	public List<FaceVoice> getLatestVoice(int startRow, int endRow) {
-		return faceVociceDao.getLatestVoice(startRow, endRow, null, null);
+		return getLatestVoice(startRow, endRow, null, null);
+	}
+
+	@Override
+	public List<FaceVoice> getVisibleSecret(int startRow, int endRow, Integer userId) {
+		return faceVociceDao.getVisibleSecret(startRow, endRow, userId);
 	}
 
 	@Override

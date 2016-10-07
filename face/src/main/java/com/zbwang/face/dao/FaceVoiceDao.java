@@ -16,4 +16,6 @@ public interface FaceVoiceDao {
 
 	FaceVoice getVoiceById(int voiceId);
 
+	List<FaceVoice> getVisibleSecret(int startRow, int endRow, Integer userId);
+
 }

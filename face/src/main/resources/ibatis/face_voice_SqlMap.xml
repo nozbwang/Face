@@ -53,4 +53,15 @@
     limit #startRow:INTEGER#, #endRow:INTEGER#
   </select>
   
+  <select id="getAllSecret" parameterClass="java.util.Map" resultMap="baseMap">
+  <![CDATA[
+    select voice_id, user_id, voice, add_time, update_time,belong_type,belong_id
+    from face_voice
+    where belong_type=3
+	and date_sub(curdate(), interval 3 day) <= add_time
+    order by add_time desc
+    limit #startRow:INTEGER#, #endRow:INTEGER#
+   ]]>
+  </select>
+  
 </sqlMap>

@@ -60,9 +60,13 @@ public class FaceVoiceController extends BaseController {
 			sendVoiceNoticeMail((String) elements.get("voice"), localPictureIds, remotePictureId);
 		}
 		String belongType = (String) elements.get("belongType");
-		if (FaceConstants.B_TYPE_BOOK.equals(belongType)) {
-			int belongId = NumberUtils.toInt((String) elements.get("belongId"));
-			return getBaseModelAndView(getRedirectView("book/detail?bookId=" + belongId), request);
+		if (StringUtils.isNotEmpty(belongType)) {
+			if (FaceConstants.B_TYPE_BOOK.equals(belongType)) {
+				int belongId = NumberUtils.toInt((String) elements.get("belongId"));
+				return getBaseModelAndView(getRedirectView("book/detail?bookId=" + belongId), request);
+			} else if (FaceConstants.B_TYPE_TREEHOLE.equals(belongType)) {
+				return getBaseModelAndView(getRedirectView("treehole"), request);
+			}
 		}
 		return getBaseModelAndView(getRedirectView(""), request);
 	}

@@ -77,6 +77,7 @@ public class FaceConstants {
 	// 类型
 	public static final String B_TYPE_BOOK = "1";
 	public static final String B_TYPE_FOOT = "2";
+	public static final String B_TYPE_TREEHOLE = "3";
 
 	// BOOK
 	public static final String BOOK_LITERATURE = "literature";

@@ -104,3 +104,9 @@ ul li{
   cursor:pointer;
  }
  
+ #fixed_table_treehole{
+	table-layout:fixed ; 
+	width:900px;
+	word-wrap: break-word;
+}
+ 

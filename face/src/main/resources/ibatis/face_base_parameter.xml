@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="face_base_parameter">
+  <resultMap class="com.zbwang.face.domain.Parameter" id="abatorgenerated_FaceBaseParameterResult">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="name_cn" jdbcType="VARCHAR" property="nameCn" />
+    <result column="name_en" jdbcType="VARCHAR" property="nameEn" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+ 
+  <select id="abatorgenerated_selectByPrimaryKey" parameterClass="com.zbwang.face.domain.Parameter" resultMap="abatorgenerated_FaceBaseParameterResult">
+    select id, type, name_cn, name_en, value, add_time, update_time
+    from face_base_parameter
+    where id = #id:INTEGER#
+  </select>
+  
+  <insert id="insertBaseParameter" parameterClass="com.zbwang.face.domain.Parameter">
+    insert into face_base_parameter (type,name_cn, name_en, value, add_time, update_time)
+    values (#type:VARCHAR#, #nameCn:VARCHAR#,#nameEn:VARCHAR#, #value:VARCHAR#,now(),now())
+  </insert>
+  
+    <select id="getAllBaseParameter" parameterClass="com.zbwang.face.domain.Parameter" resultMap="abatorgenerated_FaceBaseParameterResult">
+    select id, type, name_cn, name_en, value, add_time, update_time
+    from face_base_parameter
+  	</select>
+  
+  <update id="abatorgenerated_updateByPrimaryKey" parameterClass="com.zbwang.face.domain.Parameter">
+    update face_base_parameter
+    set name_cn = #nameCn:VARCHAR#,
+      name_en = #nameEn:VARCHAR#,
+      value = #value:VARCHAR#,
+      add_time = #addTime:TIMESTAMP#,
+      update_time = #updateTime:TIMESTAMP#
+    where id = #id:INTEGER#
+  </update>
+  
+</sqlMap>

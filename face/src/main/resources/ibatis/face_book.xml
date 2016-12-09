@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="face_book" >
+  <resultMap id="bookResult" class="com.zbwang.face.domain.Book" >
+    <result column="book_id" property="bookId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="book_title" property="bookTitle" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="book_detail" property="bookDetail" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="book_type" property="bookType" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <insert id="insertBook" parameterClass="com.zbwang.face.domain.Book" >
+    insert into face_book ( user_id, book_title, author, book_detail, add_time, update_time,
+      book_type)
+    values ( #userId:INTEGER#, #bookTitle:VARCHAR#, #author:VARCHAR#,
+      #bookDetail:VARCHAR#, now(), #updateTime:TIMESTAMP#, #bookType:VARCHAR#);
+       <selectKey resultClass="int">
+		SELECT LAST_INSERT_ID() as bookId
+	</selectKey>
+  </insert>
+  
+   <select id="getBookByType" resultMap="bookResult" parameterClass="map" >
+    select book_id, user_id, book_title, author, book_detail, add_time, update_time, book_type
+    from face_book
+    where 1=1
+    <isNotEmpty prepend=" and " property="bookType">
+    	book_type = #bookType:VARCHAR#
+    </isNotEmpty>
+   	order by add_time desc
+    limit #startRow:INTEGER#, #endRow:INTEGER#
+  </select>
+  
+   <select id="getBookById" resultMap="bookResult" parameterClass="int" >
+    select book_id, user_id, book_title, author, book_detail, add_time, update_time, book_type
+    from face_book
+    where book_id = #bookId:INTEGER#
+  </select>
+  
+</sqlMap>

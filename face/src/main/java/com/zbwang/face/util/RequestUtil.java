@@ -14,7 +14,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.zbwang.face.constant.FaceConstants;
+import com.zbwang.face.constant.Constants;
 
 public class RequestUtil {
 
@@ -35,7 +35,7 @@ public class RequestUtil {
 							elements.put(item.getFieldName(), value);
 						}
 					}
-				} else if (FaceConstants.picContentTypes.contains(item.getContentType())) {
+				} else if (Constants.picContentTypes.contains(item.getContentType())) {
 					String key = item.getFieldName();
 					if (elements.containsKey(key)) {
 						((List<FileItem>) elements.get(key)).add(item);

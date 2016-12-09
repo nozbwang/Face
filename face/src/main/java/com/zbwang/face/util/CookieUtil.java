@@ -13,7 +13,7 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
-import com.zbwang.face.constant.FaceConstants;
+import com.zbwang.face.constant.Constants;
 
 public class CookieUtil {
 
@@ -32,7 +32,7 @@ public class CookieUtil {
 	}
 
 	public static void removeLGCookie(HttpServletResponse response) {
-		Cookie cookie = new Cookie(FaceConstants.COOKIE_LOGIN, null);
+		Cookie cookie = new Cookie(Constants.COOKIE_LOGIN, null);
 		cookie.setDomain(".bobomeilin.com");
 		cookie.setPath("/");
 		cookie.setMaxAge(0);
@@ -40,23 +40,23 @@ public class CookieUtil {
 	}
 
 	public static void addLGCookie(HttpServletResponse response, String UserId) {
-		Cookie cookie = new Cookie(FaceConstants.COOKIE_LOGIN, UserId);
+		Cookie cookie = new Cookie(Constants.COOKIE_LOGIN, UserId);
 		cookie.setDomain(".bobomeilin.com");
 		cookie.setPath("/");
-		cookie.setMaxAge(FaceConstants.VALID_VISIT_TIME);
+		cookie.setMaxAge(Constants.VALID_VISIT_TIME);
 		addHttpOnlyCookie(response, cookie);
 	}
 
 	public static void addLVTCookie(HttpServletResponse response) {
-		Cookie cookie = new Cookie(FaceConstants.COOKIE_LOGIN_LVT, FormatUtil.formatMinuteTime(new Date()));
+		Cookie cookie = new Cookie(Constants.COOKIE_LOGIN_LVT, FormatUtil.formatMinuteTime(new Date()));
 		cookie.setDomain(".bobomeilin.com");
 		cookie.setPath("/");
-		cookie.setMaxAge(FaceConstants.VALID_VISIT_TIME);
+		cookie.setMaxAge(Constants.VALID_VISIT_TIME);
 		addHttpOnlyCookie(response, cookie);
 	}
 
 	public static void removeLVTCookie(HttpServletResponse response) {
-		Cookie cookie = new Cookie(FaceConstants.COOKIE_LOGIN_LVT, null);
+		Cookie cookie = new Cookie(Constants.COOKIE_LOGIN_LVT, null);
 		cookie.setDomain(".bobomeilin.com");
 		cookie.setPath("/");
 		cookie.setMaxAge(0);
@@ -72,7 +72,7 @@ public class CookieUtil {
 		String domain = cookie.getDomain();
 		StringBuffer strBufferCookie = new StringBuffer();
 		strBufferCookie.append(cookieName + "=" + cookieValue + ";");
-		if (maxAge != FaceConstants.COOKIE_SESSION) {
+		if (maxAge != Constants.COOKIE_SESSION) {
 			strBufferCookie.append("Max-Age=" + cookie.getMaxAge() + ";");
 		}
 		if (domain != null) {

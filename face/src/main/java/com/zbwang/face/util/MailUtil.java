@@ -15,7 +15,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.zbwang.face.domain.FaceMail;
+import com.zbwang.face.domain.Mail;
 
 @Component
 public class MailUtil {
@@ -30,7 +30,7 @@ public class MailUtil {
 
 	private static final Logger LOG = Logger.getLogger(MailUtil.class);
 
-	public static void sendMailAsync(final FaceMail mailBean) {
+	public static void sendMailAsync(final Mail mailBean) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -40,14 +40,14 @@ public class MailUtil {
 	}
 
 	public static void main(String[] args) {
-		FaceMail jj = new FaceMail();
+		Mail jj = new Mail();
 		jj.setTo("498330153@qq.com");
 		jj.setContent("来自于马来西12亚的玻璃");
 		jj.setSubject("来自于马来西12ewr亚的玻璃");
 		sendMail(jj);
 	}
 
-	public static void sendMail(FaceMail mailBean) {
+	public static void sendMail(Mail mailBean) {
 		final Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.host", "smtp.126.com");

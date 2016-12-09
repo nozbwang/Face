@@ -39,7 +39,7 @@
   
   <filter>
 	  <filter-name>baseInfoFilter</filter-name>
-	  <filter-class>com.zbwang.face.filter.BaseInfoFilter</filter-class>
+	  <filter-class>com.zbwang.face.filter.UserFilter</filter-class>
   </filter>
   <filter-mapping>
   	<filter-name>baseInfoFilter</filter-name>

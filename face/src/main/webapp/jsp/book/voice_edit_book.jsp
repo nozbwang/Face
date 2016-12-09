@@ -54,7 +54,7 @@
 		</form>
 	</div>
 	<div class="clearFloat"></div>
-	<%@ include file="../../common/bottom.jsp"%>
+	<%@ include file="../common/bottom.jsp"%>
 	</body>
 <script src="<%=request.getContextPath()%>/js/jquery-1.9.1.js"></script>
 <script src="<%=request.getContextPath() %>/js/base.js"></script>

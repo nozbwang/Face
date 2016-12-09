@@ -4,6 +4,8 @@
 <html>
 <head>
 	<title>心声</title>
+	<meta name="keyword" content="bobomeilin"> 
+	<meta name="description" content="bobomeilin"> 
 	<%@ include file="common/common.jsp"%>
 </head>
 

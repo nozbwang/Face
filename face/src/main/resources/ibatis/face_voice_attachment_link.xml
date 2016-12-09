@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="face_voice_attachment_link">
+  <resultMap class="com.zbwang.face.domain.AttachLink" id="musicLinkInfo">
+    <result column="belong_id" jdbcType="INTEGER" property="belongId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="music_type" jdbcType="VARCHAR" property="musicType" />
+    <result column="music_id" jdbcType="VARCHAR" property="musicId" />
+  </resultMap>
+  
+   <resultMap class="com.zbwang.face.domain.AttachLink" id="pictureLinkInfo">
+   	<result column="attachment_link_id" jdbcType="INTEGER" property="attachmentLinkId" />
+    <result column="belong_id" jdbcType="INTEGER" property="belongId" />
+    <result column="belong_type" jdbcType="VARCHAR" property="belongType" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="link" jdbcType="VARCHAR" property="link" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+   </resultMap>
+  
+   <insert id="insertFaceVoiceAttachLink" parameterClass="com.zbwang.face.domain.AttachLink">
+    insert into face_voice_attachment_link (belong_id,belong_type, user_id, type, music_type,music_id, link, add_time)
+    values (#belongId:DECIMAL#,#belongType:VARCHAR#, #userId:INTEGER#, #type:VARCHAR#,
+      #musicType:VARCHAR#, #musicId:VARCHAR#, #link:VARCHAR#, now());
+       <selectKey resultClass="int">
+		SELECT LAST_INSERT_ID() as attachmentLinkId
+		</selectKey>	
+  	</insert>
+  	
+  	<select id="getAttachLinkByVoiceIdGroup" parameterClass="java.util.List" resultMap="musicLinkInfo">
+    select belong_id,type, music_type, music_id
+    from face_voice_attachment_link
+     where 1=1
+    AND belong_id in
+    <iterate open="(" close=")" conjunction=",">
+		#voiceIds[]:INTEGER#
+	</iterate>
+	AND type = 1
+  </select>
+  
+  	<select id="getAttachLinkNeedCompress" resultMap="pictureLinkInfo">
+	    select attachment_link_id,belong_id,belong_type, user_id, type, link, add_time
+	    from face_voice_attachment_link
+	    where type = 0
+ 	 </select>
+ 	 
+ 	 <delete id="deleteAttachLink" parameterClass="java.lang.Integer">
+	   delete from face_voice_attachment_link where attachment_link_id=#attachLinkId:INTEGER# and type=0
+ 	 </delete>
+  
+</sqlMap>

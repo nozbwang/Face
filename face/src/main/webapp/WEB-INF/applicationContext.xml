@@ -22,10 +22,6 @@
     	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     
-    <bean id="desEncryptComponent" class="com.zbwang.face.util.DesEncryptComponent">
-    	<property name="key" value="${DES.KEY}"/>
-    </bean>    
-    
     <!-- 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="${driver}" />

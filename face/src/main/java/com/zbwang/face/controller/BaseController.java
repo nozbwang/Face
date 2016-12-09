@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zbwang.face.constant.FaceConstants;
-import com.zbwang.face.domain.FaceUser;
+import com.zbwang.face.constant.Constants;
+import com.zbwang.face.domain.User;
 import com.zbwang.face.util.SecurityInfoHolder;
 
 public class BaseController {
@@ -48,15 +48,15 @@ public class BaseController {
 	}
 
 	public boolean isLogon(HttpServletRequest request) {
-		FaceUser user = getUser(request);
+		User user = getUser(request);
 		return user != null && user.getUserId() != 0;
 	}
 
 	public boolean isInvalidID(int id) {
-		return id == FaceConstants.ID_UNKOWN;
+		return id == Constants.ID_UNKOWN;
 	}
 
-	public FaceUser getUser(HttpServletRequest request) {
+	public User getUser(HttpServletRequest request) {
 		return SecurityInfoHolder.getSecurityInfo().getUser();
 	}
 

@@ -1,6 +1,6 @@
 package com.zbwang.face.util;
 
-import com.zbwang.face.command.BaseCommand;
+import com.zbwang.face.dto.BaseCommand;
 
 public class SecurityInfoHolder {
 

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"	
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"	
+	xmlns:context="http://www.springframework.org/schema/context"	
+	xmlns:mvc="http://www.springframework.org/schema/mvc"		
+	xsi:schemaLocation="http://www.springframework.org/schema/beans	
+    http://www.springframework.org/schema/beans/spring-beans.xsd	
+    http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd 
+    http://www.springframework.org/schema/context	
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    
+<!--     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertiesFactoryBean"> -->
+<!--          <property name="locations" > -->
+<!-- 	         <list> -->
+<!-- 	              <value>classpath:properties/*.properties</value> -->
+<!-- 	         </list> -->
+<!--          </property> -->
+<!--    </bean> -->
+   <bean id="propertyConfigurer"  
+        class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+        <property name="locations">  
+            <list>  
+                <value>  
+                    classpath:properties/*.properties
+                </value>  
+            </list>  
+        </property>  
+    </bean> 
+   
+    <context:component-scan base-package="com.zbwang.face">
+    	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="url" value="${url}" />
+	</bean>
+	 
+	  <!--
+	 <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">  
+        <property name="jndiName">  
+            <value>java:comp/env/jdbc/face</value>  
+        </property>  
+    </bean>  
+    -->
+	
+    <bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean" autowire="byName">
+		<property name="configLocation" value="/WEB-INF/sqlmap_config.xml"/>
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+    
+</beans>

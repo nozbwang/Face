@@ -15,7 +15,7 @@ $("#username").blur(function(){
     	return;
 	}
 	$.ajax( {    
-	    url:'/login/checkUsername', 
+	    url:'/user/checkUsername', 
 	    data:{
 	        username: $("#username").val()
 	    },    

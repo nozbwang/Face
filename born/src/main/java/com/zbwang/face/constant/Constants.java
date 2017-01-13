@@ -17,7 +17,7 @@ public class Constants {
 	public static String COOKIE_LOGIN_LVT = "LVT";
 	public static int COOKIE_SESSION = -2;
 	// time
-	public static int VALID_VISIT_TIME = 4 * 60 * 60 * 1000;
+	public static int VALID_VISIT_TIME = 4 * 60 * 60;
 	// Content-Type
 	// pic
 	public static final List<String> picContentTypes = new ArrayList<String>() {

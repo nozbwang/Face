@@ -6,7 +6,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.zbwang.face.constant.Constants;
 
-public class UserCommand extends BaseCommand {
+public class UserCommand {
 	private Integer userId;
 	private String userName;
 	private String email;

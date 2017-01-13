@@ -16,7 +16,8 @@ import org.apache.log4j.Logger;
 import com.zbwang.face.constant.Constants;
 
 public class CookieUtil {
-	private static final String Domain = "118.178.196.129";
+	// private static final String Domain = "118.178.196.129";
+	private static final String Domain = ".bobomeilin.com";
 	private static final Logger log = Logger.getLogger(CookieUtil.class);
 
 	public static String getCookieValue(HttpServletRequest request, String key) {
@@ -31,6 +32,11 @@ public class CookieUtil {
 		return StringUtils.EMPTY;
 	}
 
+	public static String getDecryptCookieValue(HttpServletRequest request, String key) {
+		String cookieValue = getCookieValue(request, key);
+		return EncryptUtil.decrypt(cookieValue);
+	}
+
 	public static void removeLGCookie(HttpServletResponse response) {
 		Cookie cookie = new Cookie(Constants.COOKIE_LOGIN, null);
 		cookie.setDomain(Domain);
@@ -40,7 +46,7 @@ public class CookieUtil {
 	}
 
 	public static void addLGCookie(HttpServletResponse response, String UserId) {
-		Cookie cookie = new Cookie(Constants.COOKIE_LOGIN, UserId);
+		Cookie cookie = new Cookie(Constants.COOKIE_LOGIN, EncryptUtil.encrypt(UserId));
 		cookie.setDomain(Domain);
 		cookie.setPath("/");
 		cookie.setMaxAge(Constants.VALID_VISIT_TIME);

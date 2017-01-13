@@ -27,7 +27,8 @@
                 </tr>
                 <tr>
                     <td colspan="2" class="right">
-                    	<input  class="submitButton"  type="submit" value="提交">
+               			<input type="submit"  id="submitButton"  class="submitButton"  value="提交">
+						<input  type="hidden" id="submitFlag" value="">
                     </td>
                 </tr>
             </table>

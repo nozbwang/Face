@@ -19,19 +19,14 @@ import com.zbwang.face.service.impl.ContextService;
 import com.zbwang.face.util.SecurityInfoHolder;
 
 public class UserFilter extends OncePerRequestFilter {
-
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		SecurityInfoHolder securityInfoHoler = new SecurityInfoHolder();
-		BaseCommand command = new BaseCommand();
 		String userId = (String) WebUtils.getSessionAttribute(request, Constants.SESSION_LOGIN);
 		IUserService faceUserService = (IUserService) ContextService.getBean(IUserService.class);
 		User user = faceUserService.getUser(NumberUtils.toInt(userId));
-		command.setUser(user);
-		securityInfoHoler.setSecurityInfo(command);
+		SecurityInfoHolder.setSecurityInfo(new BaseCommand(user));
 		filterChain.doFilter(request, response);
-		securityInfoHoler.setSecurityInfo(null);
+		SecurityInfoHolder.setSecurityInfo(null);
 	}
-
 }

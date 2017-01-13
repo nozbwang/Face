@@ -1,6 +1,6 @@
-function checkAll()
+$("#loginButton").bind("click",function()
 {
-	var username=$("#username").val().trim();
+	var username=$("#userName").val().trim();
 	if(username.length==0)
 	{
 		$("#usernameNotice").text("用户名不能为空.");
@@ -27,14 +27,14 @@ function checkAll()
 		return false;
 	}
 	return true;
-}
+});
 
-$("#username").blur(function(){
+$("#userName").blur(function(){
 	$("#usernameNotice").text("");
 	$("#passwordNotice").text("");
 	$("#usernameNotice").removeClass();
 	
-	var username=$("#username").val().trim();
+	var username=$("#userName").val().trim();
 	if(username.length==0)
 	{
 		return;
@@ -45,25 +45,4 @@ $("#username").blur(function(){
     	$("#usernameNotice").css("color","red");
     	return;
 	}
-	$.ajax( {    
-	    url:'/login/checkUsername', 
-	    data:{
-	        username: $("#username").val()
-	    },    
-	    type:'post',    
-	    cache:false,    
-	    dataType:'json',    
-	    success:function(data) {    
-	        if(data.nameExists){    
-	        	$("#usernameNotice").text("用户名已经被注册.");
-	        	$("#usernameNotice").css("color","red");
-	        }else{    
-	        	$("#usernameNotice").addClass("ok");
-	        }    
-	     },    
-	     error : function() {    
-	          alert("异常！");    
-	     }    
-	});  
-		
 });

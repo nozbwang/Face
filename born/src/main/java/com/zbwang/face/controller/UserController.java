@@ -1,6 +1,8 @@
 package com.zbwang.face.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,12 +17,16 @@ import com.zbwang.face.constant.Constants;
 import com.zbwang.face.constant.MessageConstants;
 import com.zbwang.face.domain.Mail;
 import com.zbwang.face.domain.User;
+import com.zbwang.face.dto.BaseCommand;
 import com.zbwang.face.dto.UserCommand;
 import com.zbwang.face.service.IUserService;
 import com.zbwang.face.util.CookieUtil;
 import com.zbwang.face.util.FileUtil;
 import com.zbwang.face.util.MailUtil;
+import com.zbwang.face.util.SecurityInfoHolder;
 import com.zbwang.face.util.StringUtil;
+
+import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/user")
@@ -34,7 +40,7 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping("/registerVoice")
-	public ModelAndView registerVoice(UserCommand userCommand, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView registerBorn(UserCommand userCommand, HttpServletRequest request, HttpServletResponse response) {
 		if (userCommand.isRegisterComplete()) {
 			User userInDB = loginService.getUser(userCommand.getUserName());
 			if (userInDB == null) {
@@ -44,11 +50,25 @@ public class UserController extends BaseController {
 				user.setEmail(userCommand.getEmail());
 				Integer userId = loginService.insertUser(user);
 				recordLGFoot(request, response, userId);
+				SecurityInfoHolder.setSecurityInfo(new BaseCommand(user));
 				return getSuccessModelAndView(MessageConstants.REGISTER_SUCCESS.getNotice());
 			}
 			return getErrorModelAndView(MessageConstants.REGISTER_EXIST.getNotice());
 		}
 		return getErrorModelAndView(MessageConstants.REGISTER_ERROR.getNotice());
+	}
+
+	@RequestMapping("/checkUsername")
+	public void checkUsername(UserCommand userCommand, HttpServletResponse response) throws IOException {
+		Map<String, Boolean> result = new HashMap<String, Boolean>();
+		User userInDB = loginService.getUser(userCommand.getUserName());
+		if (userInDB != null) {
+			result.put("nameExists", true);
+		} else {
+			result.put("nameExists", false);
+		}
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().write(JSONObject.fromObject(result).toString());
 	}
 
 	@RequestMapping("/login")
@@ -60,12 +80,13 @@ public class UserController extends BaseController {
 	}
 
 	@RequestMapping("/loginVoice")
-	public ModelAndView loginVoice(UserCommand userCommand, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView loginBorn(UserCommand userCommand, HttpServletRequest request, HttpServletResponse response) {
 		if (userCommand.isLoginComplete()) {
 			User faceUser = loginService.getUser(userCommand.getUserName());
 			if (faceUser != null && faceUser.getPassword().equals(userCommand.getPassword())) {
 				recordLGFoot(request, response, faceUser.getUserId());
-				return getSuccessModelAndView(MessageConstants.LOGIN_SUCCESS.getNotice());
+				SecurityInfoHolder.setSecurityInfo(new BaseCommand(faceUser));
+				return getBaseModelAndView("forward:/");
 			}
 		}
 		return getErrorModelAndView(MessageConstants.LOGIN_ERROR.getNotice());

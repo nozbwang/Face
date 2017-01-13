@@ -9,8 +9,8 @@
   </resultMap>
  
  <insert id="insertUser" parameterClass="com.zbwang.face.domain.User">
-    insert into face_user (user_name, email, password, add_time)
-    values (#userName:VARCHAR#, #email:VARCHAR#, #password:VARCHAR#, now())
+    insert into face_user (logon_name, user_name, email, password, add_time)
+    values (#userNameInLowerCase:VARCHAR#,#userName:VARCHAR#, #email:VARCHAR#, #password:VARCHAR#, now())
     <selectKey resultClass="int">
 		SELECT LAST_INSERT_ID() as userId
 	</selectKey>
@@ -19,7 +19,7 @@
    <select id="getUserByUserName" parameterClass="java.lang.String" resultMap="faceResultMap">
     select user_id, user_name, email, password
     from face_user
-    where user_name = #userName:VARCHAR#
+    where logon_name = #userName:VARCHAR#
     limit 1
   </select>
   

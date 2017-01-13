@@ -2,6 +2,8 @@ package com.zbwang.face.domain;
 
 import java.util.Date;
 
+import org.apache.commons.lang.StringUtils;
+
 public class User {
 	private Integer userId;
 	private String userName;
@@ -20,6 +22,10 @@ public class User {
 
 	public String getUserName() {
 		return userName;
+	}
+
+	public String getUserNameInLowerCase() {
+		return StringUtils.lowerCase(userName);
 	}
 
 	public void setUserName(String userName) {

@@ -17,7 +17,6 @@ import com.zbwang.face.util.CookieUtil;
 import com.zbwang.face.util.FormatUtil;
 
 public class LoginFilter extends OncePerRequestFilter {
-
 	public void destroy() {
 	}
 
@@ -29,9 +28,11 @@ public class LoginFilter extends OncePerRequestFilter {
 		HttpSession session = request.getSession();
 		if (lastVistTime != null && inLoginValidTime(lastVistTime)) {
 			CookieUtil.addLVTCookie(response);
-			String userId = CookieUtil.getCookieValue(request, Constants.COOKIE_LOGIN);
+			String userId = CookieUtil.getDecryptCookieValue(request, Constants.COOKIE_LOGIN);
 			if (StringUtils.isNotBlank(userId)) {
 				session.setAttribute(Constants.SESSION_LOGIN, userId);
+			} else {
+				session.removeAttribute(Constants.SESSION_LOGIN);
 			}
 		} else {
 			session.removeAttribute(Constants.SESSION_LOGIN);
@@ -42,5 +43,4 @@ public class LoginFilter extends OncePerRequestFilter {
 	private boolean inLoginValidTime(Date lastVistTime) {
 		return new Date().getTime() - lastVistTime.getTime() < Constants.VALID_VISIT_TIME;
 	}
-
 }

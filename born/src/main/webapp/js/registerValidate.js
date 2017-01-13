@@ -20,9 +20,9 @@ $("#username").blur(function(){
 function checkUsername(username)
 {
 	$.ajax( {    
-	    url:'/login/checkUsername', 
+	    url:'/user/checkUsername', 
 	    data:{
-	        username:username
+	    	userName:username
 	    },    
 	    type:'post',    
 	    cache:false,    
@@ -31,6 +31,7 @@ function checkUsername(username)
 	        if(data.nameExists){    
 	        	$("#usernameNotice").text("用户名已经被注册.");
 	        	$("#usernameNotice").css("color","red");
+	        	return false;
 	        }else{    
 	        	$("#usernameNotice").addClass("ok");
 	        }    
@@ -104,15 +105,14 @@ $("#mailbox").blur(function(){
 	{
 		return;
 	}
-	if(!isEmail(mailbox))
+	if(!isEmail(mailbBox))
 	{
 		$("#mailboxNotice").text("请输入正确的邮箱");
 		$("#mailboxNotice").css("color","red");
 	}
 });
 
-function checkAll()
-{
+$("#registerButton").bind("click", function(){
 	$("#usernameNotice").text("");
 	$("#passwordNotice").text("");
 	$("#confirmPasswordNotice").text("");
@@ -157,10 +157,39 @@ function checkAll()
 		$("#mailboxNotice").css("color","red");
 		return false;
 	}
-	return true;
-}
+	var nameExists=false;
+	var submitFlag = $("#submitFlag").val();
+	if (submitFlag == '1') {
+		console.log(submitFlag);
+		return false;
+	}
+	else{
+		console.log(submitFlag);
+		$("#submitFlag").val("1");
+	}
+	$.ajax( {    
+	    url:'/user/checkUsername', 
+	    data:{
+	    	userName:username
+	    },    
+	    type:'post',    
+	    cache:false,    
+	    dataType:'json',    
+	    async:false,
+	    success:function(data) {    
+	        if(data.nameExists){    
+	        	$("#usernameNotice").text("用户名已经被注册.");
+	        	$("#usernameNotice").css("color","red");
+	        	nameExists = true;
+	        }else{   
+	        	nameExists = false;
+	        }    
+	     },    
+	});
+	if (nameExists) {
+		$("#submitFlag").val("");
+		return false;
+	}
+	document.submitForm.submit();
+	});
 
-	
-	
-	
-	

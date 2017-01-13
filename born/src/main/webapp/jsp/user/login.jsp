@@ -33,7 +33,7 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                	    <input id="submitButton"  type="submit" value="登录">
+                	    <input id="loginButton"  class="submitButton"  type="submit" value="登录">
                     </td>
                 </tr>
                 <tr>
@@ -49,7 +49,8 @@
 	<%@ include file="../common/bottom.jsp"%>
 </body>
 
-<script src="<%=request.getContextPath() %>/js/jquery-1.9.1.js"></script>
-<script src="<%=request.getContextPath() %>/js/base.js"></script>
-<script src="<%=request.getContextPath() %>/js/loginValidate.js"></script>
+	<script src="<%=request.getContextPath()%>/js/jquery-1.9.1.js"></script>
+	<script src="<%=request.getContextPath() %>/js/base.js"></script>
+	<script src="<%=request.getContextPath() %>/js/form.js"></script>
+	<script src="<%=request.getContextPath() %>/js/loginValidate.js"></script>
 </html>

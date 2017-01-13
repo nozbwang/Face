@@ -11,62 +11,58 @@ import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 public class EncryptUtil {
-	private final String DES = "DES";
+	private final static String DES = "DES";
+	private static String key = "bobomeilin@1234";
 
-	private String key = "bobomeilin@1234";
-
-	public String encrypt(String data) throws Exception {
-		byte[] bt = encrypt(data.getBytes(), key.getBytes());
-		String strs = new BASE64Encoder().encode(bt);
-		return strs;
+	public static String encrypt(String data) {
+		byte[] bt;
+		try {
+			bt = encrypt(data.getBytes(), key.getBytes());
+			String strs = new BASE64Encoder().encode(bt);
+			return strs;
+		} catch (Exception e) {
+			LogUtil.serviceLog.error("Fail to encrypt " + data, e);
+		}
+		return data;
 	}
 
-	private byte[] encrypt(byte[] data, byte[] key) throws Exception {
-		// ���һ�������ε������Դ
+	private static byte[] encrypt(byte[] data, byte[] key) throws Exception {
 		SecureRandom sr = new SecureRandom();
-
-		// ��ԭʼ��Կ��ݴ���DESKeySpec����
 		DESKeySpec dks = new DESKeySpec(key);
-
-		// ����һ����Կ������Ȼ�������DESKeySpecת����SecretKey����
 		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);
 		SecretKey securekey = keyFactory.generateSecret(dks);
-
-		// Cipher����ʵ����ɼ��ܲ���
 		Cipher cipher = Cipher.getInstance(DES);
-
-		// ����Կ��ʼ��Cipher����
 		cipher.init(Cipher.ENCRYPT_MODE, securekey, sr);
-
 		return cipher.doFinal(data);
 	}
 
-	public String decrypt(String data) throws Exception {
+	public static String decrypt(String data) {
 		if (data == null)
 			return null;
-		BASE64Decoder decoder = new BASE64Decoder();
-		byte[] buf = decoder.decodeBuffer(data);
-		byte[] bt = decrypt(buf, key.getBytes());
-		return new String(bt);
+		try {
+			BASE64Decoder decoder = new BASE64Decoder();
+			byte[] buf = decoder.decodeBuffer(data);
+			byte[] bt;
+			bt = decrypt(buf, key.getBytes());
+			return new String(bt);
+		} catch (Exception e) {
+			LogUtil.serviceLog.error("Fail to decrypt " + data, e);
+		}
+		return data;
 	}
 
-	private byte[] decrypt(byte[] data, byte[] key) throws Exception {
-		// ���һ�������ε������Դ
+	public static void main(String[] args) throws Exception {
+		System.out.println(encrypt("") + 1);
+		System.out.println(decrypt("2"));
+	}
+
+	private static byte[] decrypt(byte[] data, byte[] key) throws Exception {
 		SecureRandom sr = new SecureRandom();
-
-		// ��ԭʼ��Կ��ݴ���DESKeySpec����
 		DESKeySpec dks = new DESKeySpec(key);
-
-		// ����һ����Կ������Ȼ�������DESKeySpecת����SecretKey����
 		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance(DES);
 		SecretKey securekey = keyFactory.generateSecret(dks);
-
-		// Cipher����ʵ����ɽ��ܲ���
 		Cipher cipher = Cipher.getInstance(DES);
-
-		// ����Կ��ʼ��Cipher����
 		cipher.init(Cipher.DECRYPT_MODE, securekey, sr);
-
 		return cipher.doFinal(data);
 	}
 

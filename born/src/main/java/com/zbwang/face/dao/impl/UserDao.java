@@ -9,17 +9,17 @@ import com.zbwang.face.domain.User;
 @Repository
 public class UserDao extends BaseDao implements IUserDao {
 	@Override
-	public Integer insertUser(User user) {
-		return (Integer) getSqlMapClientTemplate().insert("face_user.insertUser", user);
+	public Long insertUser(User user) {
+		return (Long) getSqlMapClientTemplate().insert("user.insertUser", user);
 	}
 
 	@Override
 	public User getUser(String userName) {
-		return (User) getSqlMapClientTemplate().queryForObject("face_user.getUserByUserName", StringUtils.lowerCase(userName));
+		return (User) getSqlMapClientTemplate().queryForObject("user.getUserByUserName", StringUtils.lowerCase(userName));
 	}
 
 	@Override
 	public User getUser(Integer userId) {
-		return (User) getSqlMapClientTemplate().queryForObject("face_user.getUserByUserId", userId);
+		return (User) getSqlMapClientTemplate().queryForObject("user.getUserByUserId", userId);
 	}
 }

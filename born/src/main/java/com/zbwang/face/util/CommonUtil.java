@@ -10,7 +10,7 @@ import com.zbwang.face.domain.User;
 public class CommonUtil {
 	public static User getVisitor() {
 		User visitor = new User();
-		visitor.setUserId(0);
+		visitor.setUserId(0L);
 		return visitor;
 	}
 

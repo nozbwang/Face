@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="robot_online_data">
+  <resultMap class="com.zbwang.face.domain.RobotOnlineData" id="BaseResultMap">
+    <result column="robot_id" jdbcType="BIGINT" property="robotId" />
+    <result column="voltage" jdbcType="DECIMAL" property="voltage" />
+    <result column="current" jdbcType="DECIMAL" property="current" />
+    <result column="mode" jdbcType="SMALLINT" property="mode" />
+    <result column="postion_x" jdbcType="DECIMAL" property="postionX" />
+    <result column="postion_y" jdbcType="DECIMAL" property="postionY" />
+    <result column="alarm_status" jdbcType="SMALLINT" property="alarmStatus" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  
+  <select id="queryForRobotOnlineData" parameterClass="long" resultMap="BaseResultMap">
+    select 
+   		robot_id, voltage, current, mode, postion_x, postion_y, alarm_status, collect_time, add_time
+    from robot_online_data
+    where robot_id = #robotId:BIGINT#
+   	order by rec_id desc
+  </select>
+  
+  <insert id="uplodaOnlineData" parameterClass="com.zbwang.face.domain.RobotOnlineData">
+    insert into robot_online_data (robot_id, voltage, current, mode, 
+      postion_x, postion_y, alarm_status, collect_time, 
+      add_time)
+    values ( #robotId:BIGINT#, #voltage:DECIMAL#, #current:DECIMAL#, #mode:SMALLINT#, 
+      #postionX:DECIMAL#, #postionY:DECIMAL#, #alarmStatus:SMALLINT#, #collectTime:TIMESTAMP#, 
+      now())
+  </insert>
+  
+</sqlMap>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="robot">
+  <resultMap class="com.zbwang.face.domain.Robot" id="BaseResultMap">
+    <result column="robot_id" jdbcType="BIGINT" property="robotId" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="adder" jdbcType="VARCHAR" property="adder" />
+    <result column="adder_id" jdbcType="BIGINT" property="adderId" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="updater" jdbcType="VARCHAR" property="updater" />
+    <result column="updater_id" jdbcType="BIGINT" property="updaterId" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <select id="selectByPrimaryKey" parameterClass="com.zbwang.face.domain.Robot" resultMap="BaseResultMap">
+    select 
+    robot_id, uuid, status, adder, adder_id, add_time, updater, updater_id, update_time
+    from robot
+    where robot_id = #robotId:BIGINT#
+  </select>
+  
+  <insert id="insertRobot" parameterClass="com.zbwang.face.domain.Robot">
+    insert into robot (uuid, status, adder, adder_id, 
+      add_time, updater, updater_id, update_time
+      )
+    values ( #uuid:VARCHAR#, #status:SMALLINT#, #adder:VARCHAR#, #adderId:BIGINT#, 
+      now(), #updater:VARCHAR#, #updaterId:BIGINT#, now()
+      )
+    <selectKey resultClass="long">
+		SELECT LAST_INSERT_ID() as userId
+	</selectKey>
+  </insert>
+  
+  <update id="uploadRobotStatus" parameterClass="map">
+    update robot
+    set status = #status:VARCHAR#,
+      update_time = now()
+    where uuid = #uuid:VARCHAR#
+  </update>
+</sqlMap>

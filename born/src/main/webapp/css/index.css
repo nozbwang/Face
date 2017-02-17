@@ -32,6 +32,8 @@ pre{
 	margin-top:60px;
 	margin-left:450px;
 	width:800px;
+	min-height:430px;
+	height:auto;
 }
 
 #bottom_word{
@@ -109,4 +111,10 @@ ul li{
 	width:900px;
 	word-wrap: break-word;
 }
+
+td  
+{  
+ white-space: nowrap;  
+}  
+
  

@@ -26,8 +26,6 @@ import com.zbwang.face.util.MailUtil;
 import com.zbwang.face.util.SecurityInfoHolder;
 import com.zbwang.face.util.StringUtil;
 
-import net.sf.json.JSONObject;
-
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController {
@@ -48,7 +46,7 @@ public class UserController extends BaseController {
 				user.setUserName(userCommand.getUserName());
 				user.setPassword(userCommand.getPassword());
 				user.setEmail(userCommand.getEmail());
-				Integer userId = loginService.insertUser(user);
+				Long userId = loginService.insertUser(user);
 				recordLGFoot(request, response, userId);
 				SecurityInfoHolder.setSecurityInfo(new BaseCommand(user));
 				return getSuccessModelAndView(MessageConstants.REGISTER_SUCCESS.getNotice());
@@ -67,8 +65,7 @@ public class UserController extends BaseController {
 		} else {
 			result.put("nameExists", false);
 		}
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(JSONObject.fromObject(result).toString());
+		writeData(response, result);
 	}
 
 	@RequestMapping("/login")
@@ -100,7 +97,7 @@ public class UserController extends BaseController {
 		return getBaseModelAndView(getRedirectView(""));
 	}
 
-	private void recordLGFoot(HttpServletRequest request, HttpServletResponse response, Integer userId) {
+	private void recordLGFoot(HttpServletRequest request, HttpServletResponse response, Long userId) {
 		CookieUtil.addLVTCookie(response);
 		CookieUtil.addLGCookie(response, userId.toString());
 		request.getSession().setAttribute(Constants.SESSION_LOGIN, userId.toString());

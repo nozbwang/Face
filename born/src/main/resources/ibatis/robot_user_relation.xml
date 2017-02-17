@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="robot_user_relation">
+  <resultMap class="com.zbwang.face.domain.RobotUserRelation" id="BaseResultMap">
+    <result column="robot_id" jdbcType="BIGINT" property="robotId" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  
+    <resultMap id="BaseResultMapExtend" class="com.zbwang.face.domain.RobotUserRelation" extends="BaseResultMap">
+    <result column="workStatus" jdbcType="SMALLINT" property="workStatus" />
+  </resultMap>
+ 
+  <select id="queryForBindedRobot" parameterClass="long" resultMap="BaseResultMapExtend">
+    select 
+	    a.robot_id, a.uuid, a.user_id, a.status, a.add_time,b.status as workStatus
+	    from robot_user_relation a, robot b
+    where user_id = #userId:BIGINT#
+    and a.robot_id =b.robot_id
+  </select>
+  
+   <select id="queryForRobotByUuid" parameterClass="string" resultMap="BaseResultMap">
+    select 
+	    a.robot_id, a.uuid, a.user_id, a.status, a.add_time
+	    from robot_user_relation a 
+    where uuid = #uuid:VARCHAR#
+    and status=1
+    limit 1
+  </select>
+  
+  <insert id="bindRobot" parameterClass="com.zbwang.face.domain.RobotUserRelation">
+    insert into robot_user_relation ( robot_id, uuid, user_id, status, 
+      add_time)
+    values (#robotId:BIGINT#, #uuid:VARCHAR#, #userId:BIGINT#, #status:SMALLINT#, 
+      now())
+      <selectKey resultClass="long">
+		SELECT LAST_INSERT_ID() as userId
+	</selectKey>
+  </insert>
+  
+</sqlMap>

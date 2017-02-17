@@ -41,6 +41,6 @@ public class LoginFilter extends OncePerRequestFilter {
 	}
 
 	private boolean inLoginValidTime(Date lastVistTime) {
-		return new Date().getTime() - lastVistTime.getTime() < Constants.VALID_VISIT_TIME;
+		return new Date().getTime() - lastVistTime.getTime() < Constants.VALID_VISIT_TIME * 1000;
 	}
 }

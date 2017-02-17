@@ -5,6 +5,12 @@ PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
 <sqlMapConfig>
 <settings useStatementNamespaces="true" />
 
- <sqlMap resource="ibatis/face_user.xml" />
+ <sqlMap resource="ibatis/user.xml" />
+ <sqlMap resource="ibatis/robot.xml" />
+ <sqlMap resource="ibatis/robot_user_relation.xml" />
+ <sqlMap resource="ibatis/robot_control.xml" />
+ <sqlMap resource="ibatis/robot_motion.xml" />
+ <sqlMap resource="ibatis/robot_online_data.xml" />
+ <sqlMap resource="ibatis/robot_temperature.xml" />
  
 </sqlMapConfig>

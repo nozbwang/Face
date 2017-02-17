@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="robot_temperature">
+  <resultMap class="com.zbwang.face.domain.RobotTemperature" id="BaseResultMap">
+    <result column="rec_id" jdbcType="BIGINT" property="recId" />
+    <result column="robot_id" jdbcType="BIGINT" property="robotId" />
+    <result column="temperature" jdbcType="DECIMAL" property="temperature" />
+    <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+  </resultMap>
+  
+  <select id="queryForRobotTemperature" parameterClass="long" resultMap="BaseResultMap">
+    select 
+    	rec_id, robot_id, temperature, collect_time, add_time
+    from robot_temperature
+    where robot_id = #robotId:BIGINT#
+    order by rec_id desc
+  </select>
+  
+  <insert id="uploadRobotTemperature" parameterClass="com.zbwang.face.domain.RobotTemperature">
+    insert into robot_temperature ( robot_id, temperature, collect_time, 
+      add_time)
+    values ( #robotId:BIGINT#, #temperature:DECIMAL#, #collectTime:TIMESTAMP#, 
+      now())
+  </insert>
+  
+</sqlMap>

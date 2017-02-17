@@ -35,7 +35,7 @@
                 </tr>
                 <tr>
                     <td>邮箱：</td>
-                    <td style="width:100px"><input type="text" id="mailbox" name="email" placeholder="选填，可用于找回密码"></td>
+                    <td style="width:100px"><input type="text" id="mailbox" name="email" placeholder="常用邮箱，可用于找回密码"></td>
                     <td id="mailboxNotice"></td>
                 </tr>
                 <tr>

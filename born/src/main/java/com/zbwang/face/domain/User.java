@@ -5,18 +5,18 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 
 public class User {
-	private Integer userId;
+	private Long userId;
 	private String userName;
 	private String email;
 	private String password;
 	private String confirmPassword;
 	private Date addTime;
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
@@ -62,5 +62,9 @@ public class User {
 
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
+	}
+
+	public boolean isLogon() {
+		return userId > 0;
 	}
 }

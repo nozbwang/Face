@@ -14,7 +14,7 @@ public class UserService implements IUserService {
 	private IUserDao loginDao;
 
 	@Override
-	public Integer insertUser(User user) {
+	public Long insertUser(User user) {
 		return loginDao.insertUser(user);
 	}
 
@@ -30,5 +30,4 @@ public class UserService implements IUserService {
 		}
 		return loginDao.getUser(userId);
 	}
-
 }

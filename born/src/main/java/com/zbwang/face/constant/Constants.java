@@ -84,4 +84,13 @@ public class Constants {
 		catalogMap.put(BOOK_MANAGE, "5");
 		catalogMap.put(BOOK_SCIENCE, "6");
 	}
+	public static final Short STATUS_START = 1;
+	public static final Short STATUS_STOP = 2;
+	public static final Short STATUS_BIND = 1;
+	public static final Short STATUS_UNBIND = 2;
+	public static final String ACTION_KEEP = "0";
+	public static final Short ACTION_START = 1;
+	public static final Short ACTION_STOP = 2;
+	public static final String SUCCESS = "0";
+	public static final String FAILURE = "1";
 }

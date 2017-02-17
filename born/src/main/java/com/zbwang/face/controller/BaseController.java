@@ -1,13 +1,19 @@
 package com.zbwang.face.controller;
 
+import java.io.IOException;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.common.collect.Maps;
 import com.zbwang.face.constant.Constants;
 import com.zbwang.face.domain.User;
 import com.zbwang.face.util.SecurityInfoHolder;
+
+import net.sf.json.JSONObject;
 
 public class BaseController {
 	protected Logger log = Logger.getLogger("errorR");
@@ -63,5 +69,36 @@ public class BaseController {
 
 	public String getRedirectView(String view) {
 		return "redirect:/" + view;
+	}
+
+	public void writeData(HttpServletResponse response, Object result) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("application/json");
+		response.getWriter().write(JSONObject.fromObject(result).toString());
+	}
+
+	public void writeSuccessData(HttpServletResponse response) throws IOException {
+		Map<String, Object> map = Maps.newHashMap();
+		map.put("code", Constants.SUCCESS);
+		writeData(response, map);
+	}
+
+	public void writeSuccessData(HttpServletResponse response, String key, Object value) throws IOException {
+		Map<String, Object> map = Maps.newHashMap();
+		map.put("code", Constants.SUCCESS);
+		map.put(key, value);
+		writeData(response, map);
+	}
+
+	public void writeSuccessData(HttpServletResponse response, Map<String, Object> map) throws IOException {
+		map.put("code", Constants.SUCCESS);
+		writeData(response, map);
+	}
+
+	public void writeFailureData(HttpServletResponse response, String key, Object value) throws IOException {
+		Map map = Maps.newHashMap();
+		map.put("code", Constants.FAILURE);
+		map.put(key, value);
+		response.getWriter().write(JSONObject.fromObject(map).toString());
 	}
 }

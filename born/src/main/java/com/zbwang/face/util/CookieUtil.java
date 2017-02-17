@@ -16,8 +16,8 @@ import org.apache.log4j.Logger;
 import com.zbwang.face.constant.Constants;
 
 public class CookieUtil {
-	// private static final String Domain = "118.178.196.129";
-	private static final String Domain = ".bobomeilin.com";
+	private static final String Domain = "118.178.196.129";
+	// private static final String Domain = ".bobomeilin.com";
 	private static final Logger log = Logger.getLogger(CookieUtil.class);
 
 	public static String getCookieValue(HttpServletRequest request, String key) {

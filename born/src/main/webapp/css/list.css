@@ -1,0 +1,239 @@
+.div{
+	    display: block;
+}
+
+.content{
+    min-height: 530px;
+    margin: 0 auto; 
+    height: 530px;
+}
+
+.container-left {
+    float: left;
+    width: 200px;
+    display: block;
+}
+
+.divMenu {
+    min-height: 530px;
+    background-color: #50657f;
+    color: #ABBDBE;
+    overflow: hidden;
+}
+
+.headMenuItem {
+        height: 46px;
+        line-height: 46px;
+        text-align: center;
+        font-weight: 700;
+        background-color: #50657F
+    }
+
+    .headMenuItem:hover {
+        cursor: pointer;
+        background-color: #7394bd
+    }
+
+    .headMenuItem span {
+        margin-left: 10px;
+        margin-right: 10px
+    }
+
+    .menuItem {
+        text-align: center;
+        height: 46px;
+        line-height: 46px;
+        background-color: #3F4955
+    }
+
+    .menuItem a {
+        color: #ABBDBE;
+        display: block;
+        width: 100%
+    }
+
+    .menuItem:hover {
+        background-color: #7394bd
+    }
+
+    .menuItemActive {
+        background-color: #4D8E39
+    }
+
+.container-right {
+    margin-left: 200px;
+}
+
+.divContent {
+    padding-left: 30px;
+    background-color: #F3F7FF;
+    height:530px;
+}
+
+.table-gray {
+    color: #6c7f9b;
+    margin-right: 10px;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+.table th, .table td {
+    padding: 8px;
+    line-height: 20px;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+}
+
+td, th {
+    display: table-cell;
+    vertical-align: inherit;
+}
+
+.table-gray th {
+    background: #D6DEEA;
+}
+
+.table-hover tbody tr:hover>td,.table-hover tbody tr:hover>th {
+    background-color: #f5f5f5
+}
+
+table {
+    max-width: 100%;
+    background-color: transparent;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.divNav {
+    background-color: #DAEAFF;
+    color: #5083DC;
+    padding-left: 5px;
+    padding-top:10px;
+}
+
+.pull-right {
+    float: right;
+}
+
+.divQuery {
+    margin: 10px 60px 10px 0;
+    height:30px;
+}
+
+.divQuery a {
+    display: inline-block;
+    height: 28px;
+    line-height: 28px;
+    padding: 0 10px;
+    border: 1px solid #ced3d9;
+    background: #f5f7fa;
+    margin: 0 2px;
+    border-radius: 3px;
+    text-decoration: none;
+    color: #222;
+    vertical-align: top;
+}
+
+.divQuery a:hover {
+    background: #e6ecf2
+}
+
+.divTitle p {
+    text-align: center;
+    font-size: 16px;
+    color: #6c7f9b;
+    margin: 30px 0 5px 0 ;
+}
+
+.dark_space{
+	 height:20px;
+	 background-color: #50657F;
+}
+
+.form-horizontal .control-group {
+    margin-bottom: 20px;
+    *zoom:1}
+
+.form-horizontal .control-group:before,.form-horizontal .control-group:after {
+    line-height: 0;
+    content: ""
+}
+
+.form-horizontal .control-group:after {
+    clear: both
+}
+
+.form-horizontal .control-label {
+    float: left;
+    width: 160px;
+    padding-top: 24px;
+    text-align: right
+}
+
+.form-horizontal .controls {
+    display: inline-block;
+    padding-left: 20px;
+    padding-top: 20px;
+    margin-left: 180px;
+    margin-left: 0
+}
+
+.form-horizontal .controls:first-child {
+    padding-left: 180px
+}
+
+.form-horizontal .help-block {
+    margin-bottom: 0
+}
+
+.form-horizontal input+.help-block,.form-horizontal select+.help-block,.form-horizontal textarea+.help-block,.form-horizontal .uneditable-input+.help-block,.form-horizontal .input-prepend+.help-block,.form-horizontal .input-append+.help-block {
+    margin-top: 10px
+}
+
+.form-horizontal .form-actions {
+    padding-left: 180px
+}
+
+.form-horizontal select {
+   	display: inline-block;
+    margin-bottom: 0;
+    width:373px;
+    padding:7px;
+    vertical-align: middle;
+}
+
+.form-horizontal input {
+   	height:30px;
+}
+
+.btn {
+    height: 36px;
+    line-height: 30px;
+    font-size: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    zoom: 1;
+    text-align: center;
+    color: #222;
+    border: solid 1px #ced3d9;
+    background-color: #f5f7fa;
+    padding: 0 15px;
+    border-radius: 3px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.btn-main {
+    color: #fff;
+    border: solid 1px #e64545;
+    background-color: #e64545;
+    margin-left:314px;
+}

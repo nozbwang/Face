@@ -93,4 +93,7 @@ public class Constants {
 	public static final Short ACTION_STOP = 2;
 	public static final String SUCCESS = "0";
 	public static final String FAILURE = "1";
+	public static final Short TYPE_ROBOT = 1;
+	public static final Short TYPE_MOTION_EQUIPMENT = 2;
+	public static final Short TYPE_TEMPERATURE_SENSOR = 3;
 }

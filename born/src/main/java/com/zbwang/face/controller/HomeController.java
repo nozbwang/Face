@@ -10,4 +10,9 @@ public class HomeController extends BaseController {
 	public ModelAndView index() {
 		return getBaseModelAndView("index");
 	}
+
+	@RequestMapping("/test")
+	public ModelAndView test() {
+		return getBaseModelAndView("test");
+	}
 }

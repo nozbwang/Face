@@ -3,6 +3,9 @@ package com.zbwang.face.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,76 +22,100 @@ import com.zbwang.face.domain.RobotOnlineData;
 import com.zbwang.face.domain.RobotTemperature;
 import com.zbwang.face.domain.RobotUserRelation;
 import com.zbwang.face.domain.User;
+import com.zbwang.face.dto.Page;
 import com.zbwang.face.service.IRobotService;
 
 @Controller
-@RequestMapping("/robot")
 public class RobotController extends BaseController {
 	@Autowired
 	private IRobotService robotService;
 
-	@RequestMapping("/show")
-	public ModelAndView showRobot() {
-		User user = getUser();
-		List<RobotUserRelation> bindedRobot = robotService.getBindedRobot(user.getUserId());
-		Map<String, Object> map = Maps.newHashMap();
-		map.put("bindedRobot", bindedRobot);
-		return getBaseModelAndView(map, "robot/show");
+	@RequestMapping("/bind/equipment")
+	public ModelAndView toBindRobot() {
+		return getModelAndView("robotType", Constants.TYPE_ROBOT, "robot/bindEquipment");
 	}
 
 	@RequestMapping("/bind")
-	public ModelAndView toBindRobot() {
-		return getBaseModelAndView("robot/bind");
-	}
-
-	@RequestMapping("/bindRobot")
-	public String bindRobot(Robot robot) {
+	public String bind(Robot robot, HttpServletRequest request) {
 		User user = getUser();
-		if (user.isLogon()) {
-			robot.setAdder(user.getUserName());
-			robot.setUpdater(user.getUserName());
-			robot.setAdderId(user.getUserId());
-			robot.setUpdaterId(user.getUserId());
-			robot.setStatus(Constants.STATUS_STOP);
-			Long robotId = robotService.insertRobot(robot);
-			RobotUserRelation robotUserRelation = new RobotUserRelation();
-			robotUserRelation.setRobotId(robotId);
-			robotUserRelation.setUserId(user.getUserId());
-			robotUserRelation.setUuid(robot.getUuid());
-			robotUserRelation.setStatus(Constants.STATUS_BIND);
-			robotService.bindRobot(robotUserRelation);
+		if (!user.isLogon()) {
+			return getRedirectView("user/login");
 		}
-		return getRedirectView("robot/show");
+		robot.setAdder(user.getUserName());
+		robot.setUpdater(user.getUserName());
+		robot.setAdderId(user.getUserId());
+		robot.setUpdaterId(user.getUserId());
+		robot.setStatus(Constants.STATUS_STOP);
+		Long robotId = robotService.insertRobot(robot);
+		RobotUserRelation robotUserRelation = new RobotUserRelation();
+		robotUserRelation.setRobotId(robotId);
+		robotUserRelation.setUserId(user.getUserId());
+		robotUserRelation.setUuid(robot.getUuid());
+		robotUserRelation.setStatus(Constants.STATUS_BIND);
+		robotService.bindRobot(robotUserRelation);
+		return getRedirectView("robot");
 	}
 
-	@RequestMapping("/showOnlineData")
-	public ModelAndView showOnlineData(@RequestParam String robotId) {
-		List<RobotOnlineData> robotOnlineData = robotService.getRobotOnlineData(NumberUtils.toLong(robotId));
+	@RequestMapping("/robot")
+	public ModelAndView showRobot() {
+		User user = getUser();
+		if (!user.isLogon()) {
+			return getBaseModelAndView(getRedirectView("user/login"));
+		}
+		List<RobotUserRelation> bindedRobots = robotService.getBindedRobot(user.getUserId());
+		if (CollectionUtils.isNotEmpty(bindedRobots)) {
+			Map<String, Object> map = Maps.newHashMap();
+			map.put("bindedRobots", bindedRobots);
+			return getBaseModelAndView(map, "robot/show");
+		}
+		return getBaseModelAndView("robot/show");
+	}
+
+	@RequestMapping("/detail/robot")
+	public ModelAndView showRobotDetail(HttpServletRequest request, @RequestParam String uuid) {
+		int currentPage = NumberUtils.toInt(request.getParameter("page"), 1);
+		int startIndex = (currentPage - 1) * 10 + 1;
+		List<RobotOnlineData> robotOnlineData = robotService.getRobotOnlineData(uuid, startIndex);
+		int total = robotService.countRobotOnlineData(uuid);
 		Map<String, Object> map = Maps.newHashMap();
 		map.put("robotOnlineData", robotOnlineData);
-		return getBaseModelAndView(map, "robot/showOnlineData");
+		Page page = new Page(total, 10, currentPage, "/detail/robot?uuid=" + uuid);
+		map.put("page", page);
+		return getBaseModelAndView(map, "robot/showRobot");
 	}
 
-	@RequestMapping("/showMotion")
-	public ModelAndView showMotion(@RequestParam String robotId) {
-		List<RobotMotion> robotMotion = robotService.getRobotMotion(NumberUtils.toLong(robotId));
+	@RequestMapping("/detail/motionEquipment")
+	public ModelAndView showMotionDetail(HttpServletRequest request, @RequestParam String uuid) {
+		int currentPage = NumberUtils.toInt(request.getParameter("page"), 1);
+		int startIndex = (currentPage - 1) * 10 + 1;
+		List<RobotMotion> robotMotion = robotService.getRobotMotion(uuid, startIndex);
+		int total = robotService.countRobotMotion(uuid);
 		Map<String, Object> map = Maps.newHashMap();
 		map.put("robotMotion", robotMotion);
+		Page page = new Page(total, 10, currentPage, "/detail/robot?uuid=" + uuid);
+		map.put("page", page);
 		return getBaseModelAndView(map, "robot/showMotion");
 	}
 
-	@RequestMapping("/showTemperature")
-	public ModelAndView showTemperature(@RequestParam String robotId) {
-		List<RobotTemperature> robotTemperature = robotService.getRobotTemperature(NumberUtils.toLong(robotId));
+	@RequestMapping("/detail/temperature")
+	public ModelAndView showTemperatureDetail(HttpServletRequest request, @RequestParam String uuid) {
+		int currentPage = NumberUtils.toInt(request.getParameter("page"), 1);
+		int startIndex = (currentPage - 1) * 10 + 1;
+		List<RobotTemperature> robotTemperature = robotService.getRobotTemperature(uuid, startIndex);
+		int total = robotService.countRobotMotion(uuid);
 		Map<String, Object> map = Maps.newHashMap();
 		map.put("robotTemperature", robotTemperature);
+		Page page = new Page(total, 10, currentPage, "/detail/robot?uuid=" + uuid);
+		map.put("page", page);
 		return getBaseModelAndView(map, "robot/showTemperature");
 	}
 
 	@RequestMapping("/showControl")
-	public ModelAndView showControl(@RequestParam String robotId) {
-		List<RobotControl> robotControls = robotService.getRobotControl(NumberUtils.toLong(robotId));
+	public ModelAndView showControl(@RequestParam String uuid) {
+		RobotUserRelation bindedRobot = robotService.getRobotByUuid(uuid);
+		List<RobotControl> robotControls = robotService.getRobotControl(uuid);
 		Map<String, Object> map = Maps.newHashMap();
+		map.put("bindedRobot", bindedRobot);
 		map.put("robotControls", robotControls);
 		return getBaseModelAndView(map, "robot/showControl");
 	}
@@ -101,7 +128,7 @@ public class RobotController extends BaseController {
 			robotControl.setUserId(user.getUserId());
 			robotService.insertRobotControl(robotControl);
 		}
-		return getRedirectView("robot/showControl?robotId=" + robotControl.getRobotId());
+		return getRedirectView("showControl?uuid=" + robotControl.getUuid());
 	}
 
 	@RequestMapping("/stop")
@@ -112,6 +139,6 @@ public class RobotController extends BaseController {
 			robotControl.setUserId(user.getUserId());
 			robotService.insertRobotControl(robotControl);
 		}
-		return getRedirectView("robot/showControl?robotId=" + robotControl.getRobotId());
+		return getRedirectView("showControl?uuid=" + robotControl.getUuid());
 	}
 }

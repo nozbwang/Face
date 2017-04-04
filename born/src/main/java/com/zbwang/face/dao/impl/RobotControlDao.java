@@ -17,13 +17,13 @@ public class RobotControlDao extends BaseDao implements IRobotControlDao {
 	}
 
 	@Override
-	public List<RobotControl> queryForRobotControl(Long robotId) {
-		return getSqlMapClientTemplate().queryForList("robot_control.queryForRobotControl", robotId);
+	public List<RobotControl> queryForRobotControl(String uuid) {
+		return getSqlMapClientTemplate().queryForList("robot_control.queryForRobotControl", uuid);
 	}
 
 	@Override
-	public List<RobotControl> queryForRobotControlSignal(Long robotId) {
-		return (List<RobotControl>) getSqlMapClientTemplate().queryForList("robot_control.queryForRobotControlSignal", robotId);
+	public List<RobotControl> queryForRobotControlSignal(String uuid) {
+		return (List<RobotControl>) getSqlMapClientTemplate().queryForList("robot_control.queryForRobotControlSignal", uuid);
 	}
 
 	@Override

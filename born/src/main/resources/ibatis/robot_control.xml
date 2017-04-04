@@ -4,24 +4,25 @@
   <resultMap class="com.zbwang.face.domain.RobotControl" id="BaseResultMap">
     <result column="rec_id" jdbcType="BIGINT" property="recId" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
-    <result column="robot_id" jdbcType="BIGINT" property="robotId" />
+    <result column="uuid" jdbcType="VARCHAR" property="uuid" />
     <result column="action" jdbcType="SMALLINT" property="action" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
   
-  <select id="queryForRobotControl" parameterClass="long" resultMap="BaseResultMap">
+  <select id="queryForRobotControl" parameterClass="string" resultMap="BaseResultMap">
     select
-    	rec_id, user_id, robot_id, action, add_time
+    	rec_id, user_id, uuid, action, add_time
     from robot_control
-    where robot_id = #robotId:BIGINT#
+    where uuid = #uuid:VARCHAR#
     order by rec_id desc
+    limit 0,20
   </select>
   
-  <select id="queryForRobotControlSignal" parameterClass="long" resultMap="BaseResultMap">
+  <select id="queryForRobotControlSignal" parameterClass="string" resultMap="BaseResultMap">
     select
-    	rec_id, user_id, robot_id, action, add_time
+    	rec_id, user_id, uuid, action, add_time
     from robot_control
-    where robot_id = #robotId:BIGINT#
+    where uuid = #uuid:VARCHAR#
     and status= '1'
     order by rec_id desc 
   </select>
@@ -36,9 +37,9 @@
   </update>
   
   <insert id="insertRobotControl" parameterClass="com.zbwang.face.domain.RobotControl">
-    insert into robot_control (user_id, robot_id, action, add_time
+    insert into robot_control (user_id, uuid, action, add_time
       )
-    values (#userId:BIGINT#, #robotId:BIGINT#, #action:SMALLINT#, now()
+    values (#userId:BIGINT#, #uuid:VARCHAR#, #action:SMALLINT#, now()
       )
   </insert>
   

@@ -7,7 +7,7 @@ import com.zbwang.face.util.FormatUtil;
 
 public class RobotMotion {
 	private Long recId;
-	private Long robotId;
+	private String uuid;
 	private BigDecimal power;
 	private BigDecimal heartRateWired;
 	private BigDecimal heartRateWireless;
@@ -23,14 +23,6 @@ public class RobotMotion {
 
 	public void setRecId(Long recId) {
 		this.recId = recId;
-	}
-
-	public Long getRobotId() {
-		return robotId;
-	}
-
-	public void setRobotId(Long robotId) {
-		this.robotId = robotId;
 	}
 
 	public BigDecimal getPower() {
@@ -99,5 +91,13 @@ public class RobotMotion {
 
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 }

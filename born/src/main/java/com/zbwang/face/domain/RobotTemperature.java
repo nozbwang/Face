@@ -7,7 +7,7 @@ import com.zbwang.face.util.FormatUtil;
 
 public class RobotTemperature {
 	private Long recId;
-	private Long robotId;
+	private String uuid;
 	private BigDecimal temperature;
 	private Date collectTime;
 	private Date addTime;
@@ -18,14 +18,6 @@ public class RobotTemperature {
 
 	public void setRecId(Long recId) {
 		this.recId = recId;
-	}
-
-	public Long getRobotId() {
-		return robotId;
-	}
-
-	public void setRobotId(Long robotId) {
-		this.robotId = robotId;
 	}
 
 	public BigDecimal getTemperature() {
@@ -54,5 +46,13 @@ public class RobotTemperature {
 
 	public void setAddTime(Date addTime) {
 		this.addTime = addTime;
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 }

@@ -7,7 +7,9 @@ import com.zbwang.face.domain.RobotUserRelation;
 public interface IRobotUserRelationDao {
 	public Long bindRobot(RobotUserRelation robotUserRelation);
 
-	List<RobotUserRelation> queryForBindedRobot(Long userId);
-
 	RobotUserRelation queryForRobotByUuid(String uuid);
+
+	List<RobotUserRelation> queryForBindedRobot(Long userId, Short robotType);
+
+	List<RobotUserRelation> queryForBindedRobot(Long userId);
 }

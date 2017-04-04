@@ -3,20 +3,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>注册心声</title>
+	<title>注册</title>
 	<%@ include file="../common/common.jsp"%>
+	<link rel="stylesheet" href="/css/index.css" type="text/css"  />
+	<link rel="stylesheet" href="/css/main.css" type="text/css"  />
 </head>
 
-<body>
-	<%@include file="../common/topLink.jsp" %>
-	<%@include file="../common/leftLink.jsp" %>
+<body  style="background:url(../images/windowback.jpg);">
+	<c:set var="pageType" value="user" scope="page"/>
+	<%@include file="../common/header.jsp" %>
 		
-       <div id="right_form">
-        <form name="registerForm" action="/user/registerVoice" method="POST">
+   	<div class="centerContent">
+        <form class="form" name="registerForm" action="/user/registerVoice" method="POST">
             <table cellspacing="25" >
                 <tr class="center">
                     <td colspan="2">
-                        <h2>注册</h2>
+                		<span class="bold">注册</span> 
                     </td>
                 <tr>
                     <td>用户名：</td>
@@ -44,11 +46,14 @@
                     	<input type="hidden" id="submitFlag" value="">
                     </td>
                 </tr>
+                 <tr>
+                    <td colspan="2" class="right"><a href="/user/login">用户登录</a></td>
+                </tr>
             </table>
         </form>
     </div>
 	
-	<%@ include file="../common/bottom.jsp"%>
+	<%@ include file="../common/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/js/jquery-1.9.1.js"></script>
 	<script src="<%=request.getContextPath() %>/js/base.js"></script>
 	<script src="<%=request.getContextPath() %>/js/form.js"></script>

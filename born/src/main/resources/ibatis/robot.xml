@@ -20,10 +20,10 @@
   </select>
   
   <insert id="insertRobot" parameterClass="com.zbwang.face.domain.Robot">
-    insert into robot (uuid, status, adder, adder_id, 
+    insert into robot (uuid, status, robot_type, adder, adder_id, 
       add_time, updater, updater_id, update_time
       )
-    values ( #uuid:VARCHAR#, #status:SMALLINT#, #adder:VARCHAR#, #adderId:BIGINT#, 
+    values ( #uuid:VARCHAR#, #status:SMALLINT#, #robotType:SMALLINT#, #adder:VARCHAR#, #adderId:BIGINT#, 
       now(), #updater:VARCHAR#, #updaterId:BIGINT#, now()
       )
     <selectKey resultClass="long">

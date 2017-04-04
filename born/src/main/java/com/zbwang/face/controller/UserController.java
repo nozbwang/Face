@@ -120,6 +120,7 @@ public class UserController extends BaseController {
 				String mailtemplate = FileUtil.readFile(mailPath);
 				HashMap<String, String> map = new HashMap<String, String>();
 				map.put("password", faceUser.getPassword());
+				map.put("userName", StringUtil.getHiddenName(faceUser.getUserName()));
 				String content = StringUtil.replaceVariables(mailtemplate, map);
 				Mail findMail = new Mail();
 				findMail.setTo(faceUser.getEmail());

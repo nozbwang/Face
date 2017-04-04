@@ -2,6 +2,7 @@ package com.zbwang.face.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -56,8 +57,13 @@ public class RobotService implements IRobotService {
 	}
 
 	@Override
-	public List<RobotMotion> getRobotMotion(Long robotId) {
-		return robotMotionDao.queryForRobotMotion(robotId);
+	public List<RobotMotion> getRobotMotion(String uuid, int startIndex) {
+		return robotMotionDao.queryForRobotMotion(uuid, startIndex);
+	}
+
+	@Override
+	public int countRobotMotion(String uuid) {
+		return robotMotionDao.countRobotMotion(uuid);
 	}
 
 	@Override
@@ -66,8 +72,13 @@ public class RobotService implements IRobotService {
 	}
 
 	@Override
-	public List<RobotTemperature> getRobotTemperature(Long robotId) {
-		return robotTemperatureDao.queryForRobotTemperature(robotId);
+	public List<RobotTemperature> getRobotTemperature(String uuid, int startIndex) {
+		return robotTemperatureDao.queryForRobotTemperature(uuid, startIndex);
+	}
+
+	@Override
+	public int countTemperature(String uuid) {
+		return robotTemperatureDao.countTemperature(uuid);
 	}
 
 	@Override
@@ -76,8 +87,17 @@ public class RobotService implements IRobotService {
 	}
 
 	@Override
-	public List<RobotControl> getRobotControl(Long robotId) {
-		return robotControlDao.queryForRobotControl(robotId);
+	public List<RobotControl> getRobotControl(String uuid) {
+		return robotControlDao.queryForRobotControl(uuid);
+	}
+
+	@Override
+	public RobotUserRelation getBindedRobot(Long userId, Short robotType) {
+		List<RobotUserRelation> robotUserRelations = robotUserRelationDao.queryForBindedRobot(userId, robotType);
+		if (CollectionUtils.isNotEmpty(robotUserRelations)) {
+			return robotUserRelations.get(0);
+		}
+		return null;
 	}
 
 	@Override
@@ -95,11 +115,7 @@ public class RobotService implements IRobotService {
 
 	@Override
 	public List<RobotControl> getRobotControlSignal(String uuid) {
-		RobotUserRelation robotUserRelation = getRobotByUuid(uuid);
-		if (robotUserRelation != null) {
-			return robotControlDao.queryForRobotControlSignal(robotUserRelation.getRobotId());
-		}
-		return null;
+		return robotControlDao.queryForRobotControlSignal(uuid);
 	}
 
 	@Override
@@ -108,8 +124,13 @@ public class RobotService implements IRobotService {
 	}
 
 	@Override
-	public List<RobotOnlineData> getRobotOnlineData(Long robotId) {
-		return robotOnlineDataDao.queryForRobotOnlineData(robotId);
+	public List<RobotOnlineData> getRobotOnlineData(String uuid, int startIndex) {
+		return robotOnlineDataDao.queryForRobotOnlineData(uuid, startIndex);
+	}
+
+	@Override
+	public int countRobotOnlineData(String uuid) {
+		return robotOnlineDataDao.countRobotOnlineData(uuid);
 	}
 
 	@Override

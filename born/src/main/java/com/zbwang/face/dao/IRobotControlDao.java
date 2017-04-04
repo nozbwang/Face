@@ -7,9 +7,9 @@ import com.zbwang.face.domain.RobotControl;
 public interface IRobotControlDao {
 	void insertRobotControl(RobotControl robotControl);
 
-	List<RobotControl> queryForRobotControl(Long robotId);
-
-	List<RobotControl> queryForRobotControlSignal(Long robotId);
-
 	void disableControlSignal(List<Long> robotControlIds);
+
+	List<RobotControl> queryForRobotControl(String uuid);
+
+	List<RobotControl> queryForRobotControlSignal(String uuid);
 }

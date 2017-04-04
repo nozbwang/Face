@@ -4,10 +4,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 public class StringUtil {
-
 	public static final Pattern pattern = Pattern.compile("~!([\\w]+)!~");
 
 	public static String replaceVariables(String template, Map<String, String> variableMap) {
@@ -18,4 +17,10 @@ public class StringUtil {
 		return template;
 	}
 
+	public static String getHiddenName(String name) {
+		if (StringUtils.isNotBlank(name)) {
+			return name.substring(0, 1) + "***" + name.substring(name.length() - 1, name.length());
+		}
+		return "";
+	}
 }

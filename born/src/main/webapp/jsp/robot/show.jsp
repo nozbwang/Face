@@ -3,61 +3,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>机器人</title>
-	<meta http-equiv="refresh" content="5">
-	<%@ include file="../common/common.jsp"%>
+<title>机器人</title>
+<%@ include file="../common/common.jsp"%>
+<link rel="stylesheet" href="../../css/main.css" type="text/css" />
+<link rel="stylesheet" href="../../css/list.css" type="text/css" />
 </head>
 
-<body>
+<body style="font-size: 1em;">
 
-<%@include file="../common/topLink.jsp" %>
+	<c:set var="pageType" value="platform" scope="page" />
+	<%@include file="../common/header.jsp"%>
+	<div class="dark_space"></div>
 
-<%@include file="../common/leftLink.jsp" %>
+	<div class="content">
+		<%@include file="../common/leftGuide.jsp"%>
+		
+		<div class="container-right">
 
-<div id="right_form">
- 	<c:if test="${empty bindedRobot}">
-		<div class="verticalCenter" style="margin-top: 250px;">
- 		尚未绑定机器人，请先<a href="/robot/bind" >绑定</a>!
- 		</div>
- 	</c:if>
-	<c:if test="${not empty bindedRobot}">
-		<a href="/robot/bind" >绑定机器人</a></br></br>
-		<table class="right"  border="1px" width="800px" border-spacing="0">
-               <tr class="center">
-                   <td colspan="6">
-                       <h2>我的机器人</h2>
-                   </td>
-              </tr>
-               <tr>
-                   <td>绑定时间</td>
-                   <td>机器人编号</td>
-                   <td>机器人状态</td>
-                   <td>上报数据详情</td>
-                   <td>机器人控制</td>
-                   <td>机器人操作历史</td>
-               </tr>
-               <c:forEach items="${bindedRobot }" var="item">
-               	<tr>
-               		<td>${item.formattedAddTime }</td>
-               		<td>${item.uuid }</td>
-              		<td>
-						<c:if test="${item.workStatus == '1' }">启动</c:if>
-						<c:if test="${item.workStatus == '2' }">关闭</c:if>
-					</td>
-               		<td>	  <a target="_blank" href="/robot/showOnlineData?robotId=${item.robotId }">实时数据</a>
-               		</td>
-               		<td>
-               			<a target="_blank" href="/robot/start?robotId=${item.robotId }">启动</a>
-               			| <a target="_blank" href="/robot/stop?robotId=${item.robotId }">停止</a>
-               		</td>
-               		<td><a href="/robot/showControl?robotId=${item.robotId }">查看详情</a></td>
-               	</tr>
-               </c:forEach>
-           </table>
-	</c:if>
-            
-</div>
+			<div class="divContent">
+				<div class="divNav">
+					当前位置： <a href="/robot">设备管理</a> &gt;&gt;  设备列表
+				</div>
+				<div class="divQuery pull-right">
+					<a href="/bind/equipment">新增设备</a>
+				</div>
 
-<%@ include file="../common/bottom.jsp"%>
+				<table class="table table-hover table-gray">
+					<tbody>
+						<tr>
+							<th>设备绑定时间</th>
+							<th>设备类型</th>
+							<th>设备编号</th>
+							<th>状态</th>
+							<th>操作</th>
+						</tr>
+						<c:if test="${not empty bindedRobots}">
+							<c:forEach items="${bindedRobots }" var="bindedRobot">
+								<tr>
+									<td>${bindedRobot.formattedAddTime }</td>
+									<td>
+										<c:if test="${bindedRobot.robotType == '1' }">机器人</c:if>
+										<c:if test="${bindedRobot.robotType == '2' }">运动检测设备</c:if>
+										<c:if test="${bindedRobot.robotType == '3' }">温度传感器</c:if>
+									</td>
+									<td>${bindedRobot.uuid }</td>
+									<td>
+										<c:if test="${bindedRobot.workStatus == '1' }">启动</c:if>
+										<c:if test="${bindedRobot.workStatus == '2' }">关闭</c:if>
+									</td>
+									<td>
+										<a target="_blank"	 href="#">编辑</a> | 
+										<a target="_blank" href="#">删除</a> |
+										<c:if test="${bindedRobot.robotType == '1' }"><a href="detail/robot?uuid=${bindedRobot.uuid }"></c:if>
+										<c:if test="${bindedRobot.robotType == '2' }"><a href="/detail/motionEquipment?uuid=${bindedRobot.uuid }"></c:if>
+										<c:if test="${bindedRobot.robotType == '3' }"><a href="/detail/temperature?uuid=${bindedRobot.uuid }"></c:if>
+										查看详情</a>
+									</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<%@ include file="../common/footer.jsp"%>
+	<script src="<%=request.getContextPath()%>/js/jquery-1.9.1.js"></script>
 </body>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".headMenuItem").click(function() {
+			var id = $(this).attr("data-id");
+			$("[data-parent-id='" + id + "']").toggle();
+			refreshBodyHeight();
+		});
+		//选中
+		$(".menuItemActive").parent().show();
+		refreshBodyHeight();
+		appendRequiredStar();
+	});
+	/*刷新body的高度
+	 */
+	function refreshBodyHeight() {
+		var windowHeight = document.documentElement.clientHeight;
+		var bodyHeight = document.body.clientHeight;
+		var menuHeigth = $(".divMenu").height();
+		var mainHeight = $(".divMain").height();
+		var headMenuCount = $(".headMenuItem").length;//菜单项头
+		var menuCount = $(".menuItem:visible").length;//菜单项
+		var changeMenuHeight = (headMenuCount + menuCount) * 50 + 100 + 20;//50表示菜单项的高度,110顶部高度，20底部高度
+		if (bodyHeight < changeMenuHeight) {
+			bodyHeight = changeMenuHeight;
+		}
+		var minMainHeight = (bodyHeight < windowHeight ? windowHeight - 110 - 20
+				: bodyHeight - 110 - 20);//110顶部高度，20底部高度
+		try {
+			var addHeight = (window.AdditionalHeight || 0);
+			minMainHeight = minMainHeight + addHeight;
+		} catch (e) {
+		}
+		$(".divMain").css("height", minMainHeight);
+		$(".divMenu").css("height", minMainHeight);
+		$(".divContent").css("height", minMainHeight);
+	}
+</script>
 </html>

@@ -26,8 +26,7 @@ public class MailUtil {
 	@Value("${mail.user}")
 	private String mailUser;
 	@Value("${mail.password}")
-	private static String mailPassword;
-
+	private String mailPassword;
 	private static final Logger LOG = Logger.getLogger(MailUtil.class);
 
 	public static void sendMailAsync(final Mail mailBean) {
@@ -54,7 +53,6 @@ public class MailUtil {
 		props.put("mail.user", "melody1926@126.com");
 		props.put("mail.password", "a19891123");
 		props.put("mail.smtp.port", "25");
-
 		Authenticator authenticator = new Authenticator() {
 			@Override
 			protected PasswordAuthentication getPasswordAuthentication() {

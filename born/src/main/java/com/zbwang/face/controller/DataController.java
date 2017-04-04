@@ -39,7 +39,7 @@ public class DataController extends BaseController {
 			return;
 		}
 		RobotOnlineData robotOnlineData = new RobotOnlineData();
-		robotOnlineData.setRobotId(robot.getRobotId());
+		robotOnlineData.setUuid(uuid);
 		robotOnlineData.setVoltage(onlineDataCommand.getVoltage());
 		robotOnlineData.setCurrent(onlineDataCommand.getCurrent());
 		robotOnlineData.setPostionX(onlineDataCommand.getPostionX());
@@ -59,7 +59,7 @@ public class DataController extends BaseController {
 			return;
 		}
 		RobotMotion robotMotion = new RobotMotion();
-		robotMotion.setRobotId(robot.getRobotId());
+		robotMotion.setUuid(uuid);
 		robotMotion.setSpeed(motionCommand.getSpeed());
 		robotMotion.setEnergy(motionCommand.getEnergy());
 		robotMotion.setHeartRateWired(motionCommand.getHeartRateWired());
@@ -79,7 +79,7 @@ public class DataController extends BaseController {
 			return;
 		}
 		RobotTemperature robotTemperature = new RobotTemperature();
-		robotTemperature.setRobotId(robot.getRobotId());
+		robotTemperature.setUuid(uuid);
 		robotTemperature.setTemperature(temperatureCommand.getTemperature());
 		robotTemperature.setCollectTime(FormatUtil.getCollectTime((temperatureCommand.getCollectTime())));
 		robotService.uploadRobotTemperature(robotTemperature);

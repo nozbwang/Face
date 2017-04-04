@@ -65,6 +65,6 @@ public class User {
 	}
 
 	public boolean isLogon() {
-		return userId > 0;
+		return userId != null && userId > 0;
 	}
 }

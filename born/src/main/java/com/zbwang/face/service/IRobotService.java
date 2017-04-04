@@ -14,29 +14,37 @@ public interface IRobotService {
 
 	Long bindRobot(RobotUserRelation robotUserRelation);
 
-	List<RobotUserRelation> getBindedRobot(Long userId);
-
 	RobotUserRelation getRobotByUuid(String uuid);
 
 	void uploadOnlineData(RobotOnlineData robotOnlineData);
 
-	List<RobotOnlineData> getRobotOnlineData(Long robotId);
-
 	void uploadRobotMotion(RobotMotion robotMotion);
 
-	List<RobotMotion> getRobotMotion(Long robotId);
+	List<RobotMotion> getRobotMotion(String uuid, int startIndex);
 
 	void uploadRobotTemperature(RobotTemperature robotTemperature);
 
-	List<RobotTemperature> getRobotTemperature(Long robotId);
+	List<RobotTemperature> getRobotTemperature(String uuid, int startIndex);
 
 	void insertRobotControl(RobotControl robotControl);
-
-	List<RobotControl> getRobotControl(Long robotId);
-
-	List<RobotControl> getRobotControlSignal(String uuid);
 
 	void disableControlSignal(List<Long> robotControlIds);
 
 	void uploadRobotStatus(String uuid, String status);
+
+	RobotUserRelation getBindedRobot(Long userId, Short robotType);
+
+	List<RobotUserRelation> getBindedRobot(Long userId);
+
+	List<RobotOnlineData> getRobotOnlineData(String uuid, int startIndex);
+
+	List<RobotControl> getRobotControl(String uuid);
+
+	List<RobotControl> getRobotControlSignal(String uuid);
+
+	int countRobotOnlineData(String uuid);
+
+	int countRobotMotion(String uuid);
+
+	int countTemperature(String uuid);
 }

@@ -1,0 +1,157 @@
+.pager {
+    text-align: center;
+    margin-top: 20px
+}
+
+.pager .page-num {
+    zoom:1;display: inline-block;
+    *display: inline;
+    zoom:1}
+
+.pager .page-num a,.pager .page-num strong {
+    float: left;
+    display: block;
+    padding: 0 10px;
+    height: 28px;
+    line-height: 28px;
+    text-decoration: none;
+    border: solid 1px #ccc;
+    margin: 0 2px;
+    border-radius: 3px
+}
+
+.pager .page-num .icon {
+    margin-right: 0;
+    line-height: 28px
+}
+
+.pager .page-num a {
+    color: #222;
+    background: #eee;
+    background-image: -webkit-repeating-linear-gradient(top,#f2f2f2,#ebebeb);
+    background-image: -o-repeating-linear-gradient(top,#f2f2f2,#ebebeb);
+    background-image: repeating-linear-gradient(to bottom,#f2f2f2,#ebebeb);
+    box-shadow: inset 0 1px 0 #fff
+}
+
+.pager .page-num a:hover {
+    background: #f2f2f2;
+    box-shadow: none
+}
+
+.pager .page-num strong {
+    border: 0px solid #fff
+}
+
+.pager .page-num .prev .icon,.pager .page-num .next .icon {
+    font-size: 24px;
+    vertical-align: -7px;
+    position: relative;
+    top: -2px
+}
+
+.pager .page-num .prev {
+    margin-right: 10px
+}
+
+.pager .page-num .prev .icon {
+    margin-right: 5px
+}
+
+.pager .page-num .next {
+    margin-left: 10px
+}
+
+.pager .page-num .next .icon {
+    margin-left: 5px
+}
+
+.pager .page-num .page-dis,.pager .page-num .page-dis:hover {
+    box-shadow: none;
+    color: #888;
+    background: #f2f2f2;
+    border-color: #e6e6e6;
+    cursor: default
+}
+
+.pager {
+    margin-bottom: 60px
+}
+
+.pager .page-num {
+    vertical-align: top;
+    color: #999
+}
+
+.pager .page-num a {
+    border-color: #b8c2cc;
+    background: #f5f7fa;
+    color: #555;
+    box-shadow: none
+}
+
+.pager .page-num a:hover {
+    border-color: #a1aab3;
+    background-color: #edeff2;
+    font-weight: bold
+}
+
+.pager .page-num .prev {
+    padding-left: 30px;
+    background: #f5f7fa url(../images/icon/pager-arr.png) 15px 6px no-repeat;
+    text-indent: -9999em;
+    padding-right: 15px
+}
+
+.pager .page-num .prev:hover {
+    font-weight: normal;
+    background: #edeff2 url(../images/icon/pager-arr.png) 15px -24px no-repeat
+}
+
+.pager .page-num .prev.page-dis,.pager .page-num .prev.page-dis:hover {
+    background: #f5f7fa url(../images/icon/pager-arr.png) 15px -114px no-repeat
+}
+
+.pager .page-num .prev .icon {
+    display: none
+}
+
+.pager .page-num .next {
+    border-color: #cc3d3d;
+    box-shadow: none;
+    color: #fff;
+    font-weight: bold;
+    padding-right: 30px;
+    background: #e64545 url(../images/icon/pager-arr.png) 45px -54px no-repeat
+}
+
+.pager .page-num .next:hover {
+    border-color: #cc3d3d;
+    background: #cc3d3d url(../images/icon/pager-arr.png) 45px -54px no-repeat
+}
+
+.pager .page-num .next.page-dis,.pager .page-num .next.page-dis:hover {
+    background: #f5f7fa url(../images/icon/pager-arr.png) 45px -84px no-repeat
+}
+
+.pager .page-num .next .icon {
+    display: none
+}
+
+.pager .page-num strong {
+    color: #e64545
+}
+
+.pager .page-num .omit {
+    color: #999;
+    line-height: 23px;
+    vertical-align: -3px
+}
+
+.pager .page-num .page-dis,.pager .page-num .page-dis:hover {
+    background-color: #f5f7fa;
+    border-color: #dae0e6;
+    color: #888;
+    font-weight: normal;
+    cursor: default
+}

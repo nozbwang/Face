@@ -128,6 +128,21 @@
 			<encoding>UTF-8</encoding>
 		</configuration>
 		</plugin>
+		 <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-war-plugin</artifactId>  
+                <version>2.4</version>  
+                  
+                <configuration>  
+                    <warName>born</warName>  
+                    <outputDirectory>target</outputDirectory>  
+                    <!-- 排除  -->
+                    <packagingExcludes>
+                        WEB-INF/lib/jsp-api-2.0.jar,
+                        WEB-INF/lib/servlet-api-2.5.jar
+                    </packagingExcludes>
+                </configuration>  
+            </plugin>
 	</plugins>
 	<finalName>born</finalName>
   </build>

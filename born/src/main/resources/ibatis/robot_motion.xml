@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="robot_motion">
   <resultMap class="com.zbwang.face.domain.RobotMotion" id="BaseResultMap">
-    <result column="robot_id" jdbcType="BIGINT" property="robotId" />
+   <result column="uuid" jdbcType="VARCHAR" property="uuid" />
     <result column="power" jdbcType="DECIMAL" property="power" />
     <result column="heart_rate_wired" jdbcType="DECIMAL" property="heartRateWired" />
     <result column="heart_rate_wireless" jdbcType="DECIMAL" property="heartRateWireless" />
@@ -12,33 +12,26 @@
     <result column="collect_time" jdbcType="TIMESTAMP" property="collectTime" />
     <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
   </resultMap>
-  <select id="queryForRobotMotion" parameterClass="long" resultMap="BaseResultMap">
+  <select id="queryForRobotMotion" parameterClass="map" resultMap="BaseResultMap">
     select 
-    robot_id, power, heart_rate_wired, heart_rate_wireless, speed, energy, status, 
+    uuid, power, heart_rate_wired, heart_rate_wireless, speed, energy, status, 
     collect_time, add_time
     from robot_motion
-    where robot_id = #robotId:BIGINT#
+    where uuid =#uuid:VARCHAR#
     order by rec_id desc
+    limit #startIndex:DECIMAL#,20
+  </select>
+  <select id="countRobotMotion" parameterClass="string" resultClass="java.lang.Integer">
+    select count(*)
+    from robot_motion
+    where uuid =#uuid:VARCHAR#
   </select>
   <insert id="uplodaRobotMotion" parameterClass="com.zbwang.face.domain.RobotMotion">
-    insert into robot_motion (robot_id, power, heart_rate_wired, 
+    insert into robot_motion (uuid, power, heart_rate_wired, 
       heart_rate_wireless, speed, energy, status, 
       collect_time, add_time)
-    values (#robotId:BIGINT#, #power:DECIMAL#, #heartRateWired:DECIMAL#, 
+    values (#uuid:VARCHAR#, #power:DECIMAL#, #heartRateWired:DECIMAL#, 
       #heartRateWireless:DECIMAL#, #speed:DECIMAL#, #energy:DECIMAL#, #status:SMALLINT#, 
       #collectTime:TIMESTAMP#, now())
   </insert>
-  <update id="updateByPrimaryKey" parameterClass="com.zbwang.face.domain.RobotMotion">
-    update robot_motion
-    set robot_id = #robotId:BIGINT#,
-      power = #power:DECIMAL#,
-      heart_rate_wired = #heartRateWired:DECIMAL#,
-      heart_rate_wireless = #heartRateWireless:DECIMAL#,
-      speed = #speed:DECIMAL#,
-      energy = #energy:DECIMAL#,
-      status = #status:SMALLINT#,
-      collect_time = #collectTime:TIMESTAMP#,
-      add_time = #addTime:TIMESTAMP#
-    where rec_id = #recId:BIGINT#
-  </update>
 </sqlMap>

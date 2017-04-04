@@ -7,7 +7,7 @@ import com.zbwang.face.util.FormatUtil;
 public class RobotControl {
 	private Long recId;
 	private Long userId;
-	private Long robotId;
+	private String uuid;
 	private Short action;
 	private Date addTime;
 
@@ -25,14 +25,6 @@ public class RobotControl {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
-	}
-
-	public Long getRobotId() {
-		return robotId;
-	}
-
-	public void setRobotId(Long robotId) {
-		this.robotId = robotId;
 	}
 
 	public Short getAction() {
@@ -53,5 +45,13 @@ public class RobotControl {
 
 	public String getFormattedAddTime() {
 		return FormatUtil.formatMinuteTime(addTime);
+	}
+
+	public String getUuid() {
+		return uuid;
+	}
+
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 }

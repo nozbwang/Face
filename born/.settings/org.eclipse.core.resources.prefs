@@ -1,7 +1,12 @@
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
-encoding//src/main/webapp/jsp/common/bottom.jsp=UTF-8
+encoding//src/main/resources/mail/find_password.mail=UTF-8
+encoding//src/main/webapp/css/main.css=UTF-8
 encoding//src/main/webapp/jsp/common/common.jsp=UTF-8
-encoding//src/main/webapp/jsp/common/topLink.jsp=UTF-8
+encoding//src/main/webapp/jsp/common/footer.jsp=UTF-8
+encoding//src/main/webapp/jsp/common/header.jsp=UTF-8
+encoding//src/main/webapp/jsp/common/leftGuide.jsp=UTF-8
 encoding//src/main/webapp/jsp/index.jsp=UTF-8
+encoding//src/main/webapp/jsp/page/pager.jsp=UTF-8
+encoding//src/main/webapp/jsp/robot/showRobot.jsp=UTF-8
 encoding//src/test/java=UTF-8

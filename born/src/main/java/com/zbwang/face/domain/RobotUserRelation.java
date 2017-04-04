@@ -11,6 +11,7 @@ public class RobotUserRelation {
 	private Long userId;
 	private Short status;
 	private Short workStatus;
+	private Short robotType;
 	private Date addTime;
 
 	public Long getRecId() {
@@ -71,5 +72,13 @@ public class RobotUserRelation {
 
 	public void setWorkStatus(Short workStatus) {
 		this.workStatus = workStatus;
+	}
+
+	public Short getRobotType() {
+		return robotType;
+	}
+
+	public void setRobotType(Short robotType) {
+		this.robotType = robotType;
 	}
 }

@@ -2,9 +2,12 @@ package com.zbwang.face.domain;
 
 import java.util.Date;
 
+import com.zbwang.face.constant.Constants;
+
 public class Robot {
 	private Long robotId;
 	private String uuid;
+	private Short robotType;
 	private Short status;
 	private String adder;
 	private Long adderId;
@@ -83,5 +86,21 @@ public class Robot {
 
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public Short getRobotType() {
+		return robotType;
+	}
+
+	public void setRobotType(Short robotType) {
+		this.robotType = robotType;
+	}
+
+	public boolean isSensor() {
+		return Constants.TYPE_TEMPERATURE_SENSOR.equals(robotType);
+	}
+
+	public boolean isMotionEquip() {
+		return Constants.TYPE_MOTION_EQUIPMENT.equals(robotType);
 	}
 }

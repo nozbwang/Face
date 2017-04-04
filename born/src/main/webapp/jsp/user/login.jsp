@@ -3,22 +3,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>登录心声</title>
+	<title>登录</title>
 	<%@ include file="../common/common.jsp"%>
+	<link rel="stylesheet" href="/css/index.css" type="text/css"  />
+	<link rel="stylesheet" href="/css/main.css" type="text/css"  />
 </head>
 
-<body>
+<body style="background:url(../images/windowback.jpg);">
 
-	<%@include file="../common/topLink.jsp" %>
+	<c:set var="pageType" value="user" scope="page"/>
+	<%@include file="../common/header.jsp" %>
 	
-	<%@include file="../common/leftLink.jsp" %>
-
-    <div id="right_form">
-        <form name="loginForm" action="/user/loginVoice" method="POST" onsubmit="return checkAll()">
+	<div class="centerContent">
+        <form name="loginForm" class="form" action="/user/loginVoice" method="POST" onsubmit="return checkAll()">
             <table cellspacing="25" class="right" >
                 <tr class="center">
                     <td colspan="2">
-                        <h2>登录</h2>
+                       	<span class="bold">登录</span> 
                     </td>
                </tr>
                 <tr>
@@ -43,10 +44,10 @@
                     <td colspan="2"><a href="/user/find">找回密码</a></td>
                 </tr>
             </table>
-        </form>
+           </form>
     </div>
 	
-	<%@ include file="../common/bottom.jsp"%>
+	<%@ include file="../common/footer.jsp"%>
 </body>
 
 	<script src="<%=request.getContextPath()%>/js/jquery-1.9.1.js"></script>

@@ -2,6 +2,7 @@ package com.zbwang.face.domain;
 
 import java.util.Date;
 
+import com.zbwang.face.constant.Constants;
 import com.zbwang.face.util.FormatUtil;
 
 public class RobotUserRelation {
@@ -52,6 +53,10 @@ public class RobotUserRelation {
 
 	public void setStatus(Short status) {
 		this.status = status;
+	}
+
+	public boolean isBinded() {
+		return Constants.STATUS_BIND.equals(status);
 	}
 
 	public Date getAddTime() {

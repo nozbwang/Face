@@ -19,7 +19,7 @@
     from robot_motion
     where uuid =#uuid:VARCHAR#
     order by rec_id desc
-    limit #startIndex:DECIMAL#,20
+    limit #startIndex:DECIMAL#, 10
   </select>
   <select id="countRobotMotion" parameterClass="string" resultClass="java.lang.Integer">
     select count(*)

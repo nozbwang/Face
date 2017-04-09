@@ -12,6 +12,7 @@
 <body style="font-size: 1em;">
 
 	<c:set var="pageType" value="platform" scope="page" />
+	<c:set var="menuType" value="equipmenu" scope="page"/>
 	<%@include file="../common/header.jsp"%>
 	<div class="dark_space"></div>
 
@@ -52,9 +53,8 @@
 										<c:if test="${bindedRobot.workStatus == '2' }">关闭</c:if>
 									</td>
 									<td>
-										<a target="_blank"	 href="#">编辑</a> | 
-										<a target="_blank" href="#">删除</a> |
-										<c:if test="${bindedRobot.robotType == '1' }"><a href="detail/robot?uuid=${bindedRobot.uuid }"></c:if>
+										<a href="/delete?uuid=${bindedRobot.uuid }" onclick="if(confirm('确认要删除设备 ${bindedRobot.uuid } 么?')==false)return false;" >删除</a> |
+										<c:if test="${bindedRobot.robotType == '1' }"><a href="detail/search?uuid=${bindedRobot.uuid }"></c:if>
 										<c:if test="${bindedRobot.robotType == '2' }"><a href="/detail/motionEquipment?uuid=${bindedRobot.uuid }"></c:if>
 										<c:if test="${bindedRobot.robotType == '3' }"><a href="/detail/temperature?uuid=${bindedRobot.uuid }"></c:if>
 										查看详情</a>
@@ -70,43 +70,6 @@
 
 	<%@ include file="../common/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/js/jquery-1.9.1.js"></script>
+	<script src="<%=request.getContextPath()%>/js/leftNavigation.js"></script>
 </body>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		$(".headMenuItem").click(function() {
-			var id = $(this).attr("data-id");
-			$("[data-parent-id='" + id + "']").toggle();
-			refreshBodyHeight();
-		});
-		//选中
-		$(".menuItemActive").parent().show();
-		refreshBodyHeight();
-		appendRequiredStar();
-	});
-	/*刷新body的高度
-	 */
-	function refreshBodyHeight() {
-		var windowHeight = document.documentElement.clientHeight;
-		var bodyHeight = document.body.clientHeight;
-		var menuHeigth = $(".divMenu").height();
-		var mainHeight = $(".divMain").height();
-		var headMenuCount = $(".headMenuItem").length;//菜单项头
-		var menuCount = $(".menuItem:visible").length;//菜单项
-		var changeMenuHeight = (headMenuCount + menuCount) * 50 + 100 + 20;//50表示菜单项的高度,110顶部高度，20底部高度
-		if (bodyHeight < changeMenuHeight) {
-			bodyHeight = changeMenuHeight;
-		}
-		var minMainHeight = (bodyHeight < windowHeight ? windowHeight - 110 - 20
-				: bodyHeight - 110 - 20);//110顶部高度，20底部高度
-		try {
-			var addHeight = (window.AdditionalHeight || 0);
-			minMainHeight = minMainHeight + addHeight;
-		} catch (e) {
-		}
-		$(".divMain").css("height", minMainHeight);
-		$(".divMenu").css("height", minMainHeight);
-		$(".divContent").css("height", minMainHeight);
-	}
-</script>
 </html>

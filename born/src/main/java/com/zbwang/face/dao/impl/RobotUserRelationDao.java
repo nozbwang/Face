@@ -17,6 +17,14 @@ public class RobotUserRelationDao extends BaseDao implements IRobotUserRelationD
 	}
 
 	@Override
+	public void deleteRobot(String uuid, Long userId) {
+		Map<String, Object> map = Maps.newHashMap();
+		map.put("userId", userId);
+		map.put("uuid", uuid);
+		getSqlMapClientTemplate().update("robot_user_relation.deleteRobot", map);
+	}
+
+	@Override
 	public List<RobotUserRelation> queryForBindedRobot(Long userId, Short robotType) {
 		Map<String, Object> map = Maps.newHashMap();
 		map.put("userId", userId);

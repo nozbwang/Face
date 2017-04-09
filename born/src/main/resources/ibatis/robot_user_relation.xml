@@ -20,6 +20,7 @@
 	    from robot_user_relation a, robot b
     where user_id = #userId:BIGINT#
     and a.robot_id =b.robot_id
+    and a.status= 1
     <isNotEmpty property="robotType">
     	and robot_type=#robotType:SMALLINT#
     </isNotEmpty>
@@ -45,5 +46,9 @@
 		SELECT LAST_INSERT_ID() as userId
 	</selectKey>
   </insert>
+  
+  <update id="deleteRobot" parameterClass="map">
+  update robot_user_relation set status = '2' where user_id =  #userId:BIGINT# and uuid=  #uuid:VARCHAR#
+  </update>
   
 </sqlMap>

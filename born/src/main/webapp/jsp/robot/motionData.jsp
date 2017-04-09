@@ -13,12 +13,12 @@
 <body style="font-size: 1em;">
 
 	<c:set var="pageType" value="platform" scope="page" />
-		<c:set var="menuType" value="equipdatamenu" scope="page"/>
 	<%@include file="../common/header.jsp"%>
 	<div class="dark_space"></div>
 
 	<div class="content">
 		<%@include file="../common/leftGuide.jsp"%>
+		
 		<div class="container-right">
 
 			<div class="divContent">
@@ -32,17 +32,27 @@
 				<table class="table table-hover table-gray">
 					<tbody>
 						<tr>
-							<th>温度</th>
-	                  		 <th>时间</th>
+							<th>消耗功率(W)</th>
+							<th>有线心率</th>
+							<th>无线心率</th>
+							<th>运动速度(m/s)</th>
+							<th>消耗能量(J)</th>
+							<th>状态</th>
+							<th>时间</th>
 						</tr>
-						<c:if test="${not empty robotTemperature}">
-						<c:forEach items="${robotTemperature }" var="item">
-							<tr>
-								<td>${item.temperature }</td>
-								<td>${item.formattedCollectTime }</td>
-							</tr>
-						</c:forEach>
-					</c:if>
+						<c:if test="${not empty robotMotion}">
+							<c:forEach items="${robotMotion }" var="item">
+								<tr>
+									<td>${item.power }</td>
+									<td>${item.heartRateWired }</td>
+									<td>${item.heartRateWireless }</td>
+									<td>${item.speed }</td>
+									<td>${item.energy }</td>
+									<td>${item.status }</td>
+									<td>${item.formattedCollectTime }</td>
+								</tr>
+							</c:forEach>
+						</c:if>
 					</tbody>
 				</table>
 			</div>
@@ -53,5 +63,4 @@
 	<script src="<%=request.getContextPath()%>/js/jquery-1.9.1.js"></script>
 	<script src="<%=request.getContextPath() %>/js/leftNavigation.js"></script>
 </body>
-
 </html>

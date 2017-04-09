@@ -13,7 +13,6 @@
 <body style="font-size: 1em;">
 
 	<c:set var="pageType" value="platform" scope="page" />
-		<c:set var="menuType" value="equipdatamenu" scope="page"/>
 	<%@include file="../common/header.jsp"%>
 	<div class="dark_space"></div>
 

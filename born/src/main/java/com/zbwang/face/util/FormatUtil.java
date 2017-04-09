@@ -15,6 +15,12 @@ public class FormatUtil {
 			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		};
 	};
+	private static ThreadLocal<SimpleDateFormat> JQUERY_MINUTE_FORMAT = new ThreadLocal<SimpleDateFormat>() {
+		@Override
+		protected SimpleDateFormat initialValue() {
+			return new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		};
+	};
 	private static ThreadLocal<SimpleDateFormat> DAILY_FORMAT = new ThreadLocal<SimpleDateFormat>() {
 		@Override
 		protected SimpleDateFormat initialValue() {
@@ -46,6 +52,17 @@ public class FormatUtil {
 		try {
 			if (StringUtils.isNotBlank(date)) {
 				return MINUTE_FORMAT.get().parse(date);
+			}
+		} catch (ParseException e) {
+			log.error("Fail to parse time :" + date, e);
+		}
+		return null;
+	}
+
+	public static Date parseJqueryDailyTime(String date) {
+		try {
+			if (StringUtils.isNotBlank(date)) {
+				return JQUERY_MINUTE_FORMAT.get().parse(date);
 			}
 		} catch (ParseException e) {
 			log.error("Fail to parse time :" + date, e);

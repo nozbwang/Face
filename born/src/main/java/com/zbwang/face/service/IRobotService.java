@@ -14,6 +14,8 @@ public interface IRobotService {
 
 	Long bindRobot(RobotUserRelation robotUserRelation);
 
+	void deleteRobot(String uuid, Long userId);
+
 	RobotUserRelation getRobotByUuid(String uuid);
 
 	void uploadOnlineData(RobotOnlineData robotOnlineData);
@@ -38,13 +40,15 @@ public interface IRobotService {
 
 	List<RobotOnlineData> getRobotOnlineData(String uuid, int startIndex);
 
+	List<RobotOnlineData> getRobotOnlineData(String uuid, int startIndex, String startTime, String endTime);
+
 	List<RobotControl> getRobotControl(String uuid);
 
 	List<RobotControl> getRobotControlSignal(String uuid);
 
-	int countRobotOnlineData(String uuid);
-
 	int countRobotMotion(String uuid);
 
 	int countTemperature(String uuid);
+
+	int countRobotOnlineData(String uuid, String startTime, String endTime);
 }

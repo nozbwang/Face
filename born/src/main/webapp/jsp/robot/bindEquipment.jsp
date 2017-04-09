@@ -13,6 +13,7 @@
 <body style="font-size: 1em;">
 
 	<c:set var="pageType" value="platform" scope="page" />
+	<c:set var="menuType" value="equipmenu" scope="page"/>
 	<%@include file="../common/header.jsp"%>
 	<div class="dark_space"></div>
 
@@ -35,14 +36,14 @@
 						<p>添加设备</p>
 					</div>
 					<hr>
-					<form id="submitForm" action="/bind" class="form-horizontal">
+					<form id="submitForm" name="submitForm" action="/bind" class="form-horizontal">
 						<div class="control-group ">
-							<label class="control-label" for="GatewayType"> 网关类型： </label>
+							<label class="control-label" for="GatewayType"> 设备类型： </label>
 							<div class="controls">
 							<select name="robotType" class="height:10px;">
-								<option value="1">机器人</option>
-								<option value="2">运动检测设备</option>
-								<option value="3">温度传感器</option>
+								<option value="1" selected>机器人</option>
+<!-- 								<option value="2">运动检测设备</option> -->
+<!-- 								<option value="3">温度传感器</option> -->
 							 </select>
 							</div>
 						</div>
@@ -50,12 +51,13 @@
 							<label class="control-label" for="GatewayType"> 设备编号：</label>
 							<div class="controls">
 								<input type="text" id="uuid" name="uuid" maxlength="255" placeholder="请输入设备编号">
+								<div id="uuidNotice"></div>
 							</div>
 						</div>
 						<div class="control-group ">
 							<div class="controls" style="align:right">
-								<input id="submitButton"  class="btn btn-main"  type="submit" value="绑定">
-                    			<input type="hidden" id="submitFlag" value="1">
+								<input id="bindQuipmentButton"  class="btn btn-main"  type="submit" value="绑定">
+                    			<input type="hidden" id="submitFlag" value="">
 							</div>
 						</div>
 					</form>
@@ -66,43 +68,11 @@
 
 	<%@ include file="../common/footer.jsp"%>
 	<script src="<%=request.getContextPath()%>/js/jquery-1.9.1.js"></script>
+	<script src="<%=request.getContextPath() %>/js/base.js"></script>
+	<script src="<%=request.getContextPath() %>/js/form.js"></script>
+	<script src="<%=request.getContextPath() %>/js/loginValidate.js"></script>
+	<script src="<%=request.getContextPath() %>/js/leftNavigation.js"></script>
+	<script src="<%=request.getContextPath() %>/js/equipmentValidate.js"></script>
 </body>
 
-<script type="text/javascript">
-	$(document).ready(function() {
-		$(".headMenuItem").click(function() {
-			var id = $(this).attr("data-id");
-			$("[data-parent-id='" + id + "']").toggle();
-			refreshBodyHeight();
-		});
-		//选中
-		$(".menuItemActive").parent().show();
-		refreshBodyHeight();
-		appendRequiredStar();
-	});
-	/*刷新body的高度
-	 */
-	function refreshBodyHeight() {
-		var windowHeight = document.documentElement.clientHeight;
-		var bodyHeight = document.body.clientHeight;
-		var menuHeigth = $(".divMenu").height();
-		var mainHeight = $(".divMain").height();
-		var headMenuCount = $(".headMenuItem").length;//菜单项头
-		var menuCount = $(".menuItem:visible").length;//菜单项
-		var changeMenuHeight = (headMenuCount + menuCount) * 50 + 100 + 20;//50表示菜单项的高度,110顶部高度，20底部高度
-		if (bodyHeight < changeMenuHeight) {
-			bodyHeight = changeMenuHeight;
-		}
-		var minMainHeight = (bodyHeight < windowHeight ? windowHeight - 110 - 20
-				: bodyHeight - 110 - 20);//110顶部高度，20底部高度
-		try {
-			var addHeight = (window.AdditionalHeight || 0);
-			minMainHeight = minMainHeight + addHeight;
-		} catch (e) {
-		}
-		$(".divMain").css("height", minMainHeight);
-		$(".divMenu").css("height", minMainHeight);
-		$(".divContent").css("height", minMainHeight);
-	}
-</script>
 </html>

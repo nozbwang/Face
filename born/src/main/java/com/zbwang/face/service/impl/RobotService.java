@@ -1,5 +1,6 @@
 package com.zbwang.face.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -20,6 +21,7 @@ import com.zbwang.face.domain.RobotOnlineData;
 import com.zbwang.face.domain.RobotTemperature;
 import com.zbwang.face.domain.RobotUserRelation;
 import com.zbwang.face.service.IRobotService;
+import com.zbwang.face.util.FormatUtil;
 
 @Service
 public class RobotService implements IRobotService {
@@ -44,6 +46,11 @@ public class RobotService implements IRobotService {
 	@Override
 	public Long bindRobot(RobotUserRelation robotUserRelation) {
 		return robotUserRelationDao.bindRobot(robotUserRelation);
+	}
+
+	@Override
+	public void deleteRobot(String uuid, Long userId) {
+		robotUserRelationDao.deleteRobot(uuid, userId);
 	}
 
 	@Override
@@ -129,8 +136,15 @@ public class RobotService implements IRobotService {
 	}
 
 	@Override
-	public int countRobotOnlineData(String uuid) {
-		return robotOnlineDataDao.countRobotOnlineData(uuid);
+	public List<RobotOnlineData> getRobotOnlineData(String uuid, int startIndex, String startTime, String endTime) {
+		Date startDate = FormatUtil.parseJqueryDailyTime(startTime);
+		Date endDate = FormatUtil.parseJqueryDailyTime(endTime);
+		return robotOnlineDataDao.queryForRobotOnlineData(uuid, startIndex, startDate, endDate);
+	}
+
+	@Override
+	public int countRobotOnlineData(String uuid, String startTime, String endTime) {
+		return robotOnlineDataDao.countRobotOnlineData(uuid, startTime, endTime);
 	}
 
 	@Override

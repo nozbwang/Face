@@ -12,4 +12,6 @@ public interface IRobotUserRelationDao {
 	List<RobotUserRelation> queryForBindedRobot(Long userId, Short robotType);
 
 	List<RobotUserRelation> queryForBindedRobot(Long userId);
+
+	void deleteRobot(String uuid, Long userId);
 }

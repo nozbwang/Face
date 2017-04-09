@@ -1,5 +1,6 @@
 package com.zbwang.face.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +26,21 @@ public class RobotOnlineDataDao extends BaseDao implements IRobotOnlineDataDao {
 	}
 
 	@Override
-	public int countRobotOnlineData(String uuid) {
-		return (int) getSqlMapClientTemplate().queryForObject("robot_online_data.countRobotOnlineData", uuid);
+	public List<RobotOnlineData> queryForRobotOnlineData(String uuid, int startIndex, Date startTime, Date endTime) {
+		Map<String, Object> paramMap = Maps.newHashMap();
+		paramMap.put("uuid", uuid);
+		paramMap.put("startIndex", startIndex);
+		paramMap.put("startTime", startTime);
+		paramMap.put("endTime", endTime);
+		return getSqlMapClientTemplate().queryForList("robot_online_data.queryForRobotOnlineData", paramMap);
+	}
+
+	@Override
+	public int countRobotOnlineData(String uuid, String startTime, String endTime) {
+		Map<String, Object> paramMap = Maps.newHashMap();
+		paramMap.put("uuid", uuid);
+		paramMap.put("startTime", startTime);
+		paramMap.put("endTime", endTime);
+		return (int) getSqlMapClientTemplate().queryForObject("robot_online_data.countRobotOnlineData", paramMap);
 	}
 }

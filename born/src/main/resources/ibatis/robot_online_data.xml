@@ -18,15 +18,35 @@
    		uuid, voltage, current, mode, postion_x, postion_y, alarm_status, collect_time, add_time
     from robot_online_data
     where uuid = #uuid:VARCHAR#
+    <isNotEmpty  prepend="and" property="startTime">
+    <![CDATA[
+    	collect_time >= #startTime:TIMESTAMP#
+    ]]>
+    </isNotEmpty>
+    <isNotEmpty  prepend="and" property="endTime">
+    <![CDATA[
+    	collect_time < #endTime:TIMESTAMP#
+   	]]>
+    </isNotEmpty>
    	order by rec_id desc
     limit  #startIndex:DECIMAL#,10
   </select>
   
-  <select id="countRobotOnlineData" parameterClass="string" resultClass="java.lang.Integer">
+  <select id="countRobotOnlineData" parameterClass="map" resultClass="java.lang.Integer">
     select 
    		count(*)
     from robot_online_data
     where uuid = #uuid:VARCHAR#
+    <isNotEmpty  prepend="and" property="startTime">
+    <![CDATA[
+    	collect_time >= #startTime:TIMESTAMP#
+    ]]>
+    </isNotEmpty>
+    <isNotEmpty  prepend="and" property="endTime">
+    <![CDATA[
+    	collect_time < #endTime:TIMESTAMP#
+   	]]>
+    </isNotEmpty>
   </select>
   
   <insert id="uplodaOnlineData" parameterClass="com.zbwang.face.domain.RobotOnlineData">

@@ -1,0 +1,40 @@
+SMAP
+_bindequipment__jsp.java
+JSP
+*S JSP
+*F
++ 1 bindEquipment.jsp
+jsp/robot/bindEquipment.jsp
++ 2 common.jsp
+jsp/robot/../common/common.jsp
++ 3 header.jsp
+jsp/robot/../common/header.jsp
++ 4 leftGuide.jsp
+jsp/robot/../common/leftGuide.jsp
+*L
+2#1:32
+3#2:33,2
+15#1,2:35,2
+16#1:38
+6#3,2:39,4
+7#3,2:44,3
+8#3,2:48,3
+9#3,2:52,3
+10#3,2:56
+11#3:58
+15#3,2:59,2
+16#3:62
+18#3:63,2
+20#3:65,3
+17#1:68
+9#4:69,4
+12#4:73,3
+21#1:76
+70#1,2:77,2
+71#1,2:80
+72#1,2:82
+73#1,2:84
+74#1,2:86
+75#1:88
+78#1:89
+*E
